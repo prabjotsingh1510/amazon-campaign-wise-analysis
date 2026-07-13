@@ -1,0 +1,1216 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prime Day 2026 · Executive Command Center</title>
+<style>
+:root{
+  --bg:#08090c; --bg-elev:#0e1015; --card:#111319; --card-2:#151822;
+  --border:#20242e; --border-2:#2a2f3b;
+  --text:#f4f6fb; --text-2:#aab2c4; --text-3:#6b7488;
+  --brand:#635bff; --brand-2:#8b85ff; --brand-soft:rgba(99,91,255,.14);
+  --green:#2fd07f; --green-soft:rgba(47,208,127,.12);
+  --amber:#f5b544; --amber-soft:rgba(245,181,68,.12);
+  --red:#ff5c6c; --red-soft:rgba(255,92,108,.12);
+  --blue:#4aa8ff; --blue-soft:rgba(74,168,255,.12);
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 30px rgba(0,0,0,.35);
+  --radius:16px; --radius-sm:11px;
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+  --mono:"SF Mono",ui-monospace,"Cascadia Code",Menlo,Consolas,monospace;
+}
+:root[data-theme="light"]{
+  --bg:#f6f7f9; --bg-elev:#ffffff; --card:#ffffff; --card-2:#fafbfc;
+  --border:#e7e9ee; --border-2:#dcdfe6;
+  --text:#0b0d12; --text-2:#4a5164; --text-3:#8a92a5;
+  --brand-soft:rgba(99,91,255,.10);
+  --green-soft:rgba(30,170,100,.10); --amber-soft:rgba(214,150,20,.12);
+  --red-soft:rgba(224,60,80,.10); --blue-soft:rgba(30,130,230,.10);
+  --shadow:0 1px 2px rgba(20,25,40,.06),0 10px 30px rgba(20,25,40,.06);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);
+  font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased;letter-spacing:-.01em;
+  transition:background .4s ease,color .4s ease}
+::selection{background:var(--brand-soft)}
+a{color:inherit;text-decoration:none}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.num{font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+
+/* ---------- layout ---------- */
+.wrap{max-width:1320px;margin:0 auto;padding:0 24px}
+header.topbar{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 82%,transparent);
+  backdrop-filter:saturate(160%) blur(18px);border-bottom:1px solid var(--border)}
+.topbar-in{display:flex;align-items:center;gap:16px;height:62px}
+.logo{display:flex;align-items:center;gap:11px;font-weight:640;font-size:15px}
+.logo .dot{width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,var(--brand),#b06bff);
+  display:grid;place-items:center;color:#fff;font-weight:800;font-size:13px;box-shadow:0 4px 14px rgba(99,91,255,.5)}
+.logo small{display:block;color:var(--text-3);font-size:11px;font-weight:500;letter-spacing:.02em}
+.spacer{flex:1}
+.tnav{display:flex;gap:2px}
+.tnav a{color:var(--text-3);font-size:12.5px;font-weight:520;padding:7px 11px;border-radius:9px;transition:.16s;white-space:nowrap}
+.tnav a:hover{color:var(--text);background:var(--card-2)}
+.tnav a.active{color:var(--text);background:var(--card-2)}
+.iconbtn{width:36px;height:36px;border-radius:10px;border:1px solid var(--border);background:var(--card);
+  color:var(--text-2);cursor:pointer;display:grid;place-items:center;transition:.16s;font-size:15px}
+.iconbtn:hover{color:var(--text);border-color:var(--border-2);transform:translateY(-1px)}
+.btn{border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;
+  padding:8px 13px;border-radius:10px;font-size:12.5px;font-weight:560;transition:.16s;display:inline-flex;align-items:center;gap:7px;font-family:var(--font)}
+.btn:hover{border-color:var(--border-2);transform:translateY(-1px);box-shadow:var(--shadow)}
+.btn.primary{background:var(--brand);border-color:var(--brand);color:#fff}
+.btn.primary:hover{background:var(--brand-2)}
+
+section{padding:46px 0 8px;scroll-margin-top:74px}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:20px;flex-wrap:wrap}
+.sec-head h2{font-size:21px;font-weight:660;letter-spacing:-.03em}
+.sec-head .k{font-size:11px;font-weight:640;letter-spacing:.14em;text-transform:uppercase;color:var(--brand-2);margin-bottom:7px}
+.sec-head p{color:var(--text-3);font-size:13px;margin-top:3px;max-width:640px}
+
+/* hero */
+.hero{padding:38px 0 6px}
+.hero .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:600;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--text-3);border:1px solid var(--border);padding:6px 12px;border-radius:100px;margin-bottom:16px}
+.hero .eyebrow .live{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(47,208,127,.5)}70%{box-shadow:0 0 0 7px rgba(47,208,127,0)}100%{box-shadow:0 0 0 0 rgba(47,208,127,0)}}
+.hero h1{font-size:34px;font-weight:700;letter-spacing:-.045em;line-height:1.08;max-width:820px}
+.hero h1 .grad{background:linear-gradient(100deg,var(--brand-2),#c98bff 60%,#ff9bd0);-webkit-background-clip:text;background-clip:text;color:transparent}
+.narrative{margin-top:18px;font-size:15.5px;line-height:1.62;color:var(--text-2);max-width:900px}
+.narrative b{color:var(--text);font-weight:620}
+
+/* cards grid */
+.grid{display:grid;gap:14px}
+.kpi-grid{grid-template-columns:repeat(auto-fill,minmax(214px,1fr))}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:17px 18px;
+  position:relative;overflow:hidden;transition:.22s;cursor:default}
+.kpi:hover{border-color:var(--border-2);transform:translateY(-2px);box-shadow:var(--shadow)}
+.kpi .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.kpi .lbl{font-size:12px;color:var(--text-3);font-weight:540;display:flex;align-items:center;gap:6px}
+.kpi .q{width:16px;height:16px;border-radius:50%;border:1px solid var(--border-2);color:var(--text-3);
+  font-size:10px;display:grid;place-items:center;cursor:help;transition:.15s;flex:none}
+.kpi .q:hover{color:var(--text);border-color:var(--brand);background:var(--brand-soft)}
+.kpi .val{font-size:27px;font-weight:680;letter-spacing:-.035em;line-height:1}
+.kpi .val small{font-size:15px;font-weight:600;color:var(--text-3);margin-left:1px}
+.kpi .sub{margin-top:9px;font-size:11.5px;color:var(--text-3);display:flex;align-items:center;gap:7px}
+.chip{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:100px;font-size:11px;font-weight:620}
+.chip.up{background:var(--green-soft);color:var(--green)}
+.chip.down{background:var(--red-soft);color:var(--red)}
+.chip.neu{background:var(--card-2);color:var(--text-3);border:1px solid var(--border)}
+.kpi .spark{position:absolute;right:0;bottom:0;left:0;height:34px;opacity:.7}
+.kpi .accent{position:absolute;top:0;left:0;width:3px;height:100%}
+
+/* cards / panels */
+.panel{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px}
+.panel.pad0{padding:0;overflow:hidden}
+
+/* chart */
+.chart-tabs{display:flex;gap:4px;flex-wrap:wrap}
+.chart-tabs button{border:1px solid var(--border);background:transparent;color:var(--text-3);
+  padding:6px 12px;border-radius:8px;font-size:12px;font-weight:560;cursor:pointer;transition:.15s;font-family:var(--font)}
+.chart-tabs button:hover{color:var(--text);border-color:var(--border-2)}
+.chart-tabs button.on{background:var(--text);color:var(--bg);border-color:var(--text)}
+svg .grid-line{stroke:var(--border);stroke-width:1;stroke-dasharray:3 4}
+svg text{fill:var(--text-3);font-family:var(--font)}
+.dot-hover{fill:var(--brand);stroke:var(--bg);stroke-width:3}
+.chart-tip{position:fixed;pointer-events:none;z-index:90;background:var(--bg-elev);border:1px solid var(--border-2);
+  border-radius:11px;padding:10px 12px;box-shadow:var(--shadow);font-size:12px;opacity:0;transition:opacity .12s;min-width:150px}
+.chart-tip .t-d{color:var(--text-3);font-size:11px;margin-bottom:6px;font-weight:600}
+.chart-tip .t-r{display:flex;justify-content:space-between;gap:16px;padding:2px 0}
+.chart-tip .t-r b{font-weight:640}
+
+/* funnel */
+.funnel{display:flex;flex-direction:column;gap:9px}
+.fstage{position:relative;background:var(--card-2);border:1px solid var(--border);border-radius:12px;padding:15px 18px;overflow:hidden;transition:.25s}
+.fstage:hover{border-color:var(--border-2);transform:translateX(3px)}
+.fstage .fill{position:absolute;inset:0;background:linear-gradient(90deg,var(--brand-soft),transparent);border-right:2px solid var(--brand);transition:width 1s cubic-bezier(.2,.8,.2,1)}
+.fstage .fc{position:relative;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.fstage .fl{display:flex;align-items:center;gap:12px}
+.fstage .fi{width:34px;height:34px;border-radius:9px;background:var(--brand-soft);color:var(--brand-2);display:grid;place-items:center;font-size:16px;flex:none}
+.fstage .fname{font-weight:600;font-size:13.5px}
+.fstage .fsub{color:var(--text-3);font-size:11.5px}
+.fstage .fval{font-size:20px;font-weight:680;letter-spacing:-.03em}
+.fconv{display:flex;align-items:center;gap:8px;justify-content:center;padding:2px 0;color:var(--text-3);font-size:11.5px;font-weight:560}
+.fconv .r{padding:2px 9px;border-radius:100px;background:var(--card-2);border:1px solid var(--border)}
+
+/* table */
+.tools{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.search{position:relative;flex:1;min-width:200px}
+.search input{width:100%;background:var(--card);border:1px solid var(--border);border-radius:10px;
+  padding:9px 12px 9px 34px;color:var(--text);font-size:13px;font-family:var(--font);transition:.16s}
+.search input:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-soft)}
+.search .si{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--text-3)}
+select.sel{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:9px 30px 9px 12px;
+  color:var(--text);font-size:12.5px;font-family:var(--font);cursor:pointer;appearance:none;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%238a92a5' stroke-width='2'><path d='M2 4l4 4 4-4'/></svg>");
+  background-repeat:no-repeat;background-position:right 11px center}
+select.sel:focus{outline:none;border-color:var(--brand)}
+.tbl-scroll{overflow-x:auto;border-radius:var(--radius);border:1px solid var(--border)}
+table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:920px}
+thead th{position:sticky;top:0;background:var(--card-2);text-align:right;padding:11px 13px;font-weight:600;
+  color:var(--text-3);font-size:11px;letter-spacing:.03em;text-transform:uppercase;cursor:pointer;white-space:nowrap;user-select:none;border-bottom:1px solid var(--border);z-index:2}
+thead th:first-child{text-align:left}
+thead th:hover{color:var(--text)}
+thead th .ar{opacity:.4;font-size:9px;margin-left:3px}
+thead th.sorted .ar{opacity:1;color:var(--brand-2)}
+tbody td{padding:11px 13px;text-align:right;border-bottom:1px solid var(--border);white-space:nowrap}
+tbody td:first-child{text-align:left;max-width:320px;overflow:hidden;text-overflow:ellipsis}
+tbody tr{transition:background .12s;cursor:pointer}
+tbody tr:hover{background:var(--card-2)}
+tbody tr:last-child td{border-bottom:none}
+.cname{font-weight:560;color:var(--text)}
+.cpf{color:var(--text-3);font-size:10.5px}
+.pill{display:inline-flex;align-items:center;justify-content:center;min-width:52px;padding:3px 9px;border-radius:7px;font-weight:640;font-size:11.5px}
+.hs{display:inline-flex;align-items:center;gap:7px}
+.hs .bar{width:42px;height:5px;border-radius:3px;background:var(--border);overflow:hidden}
+.hs .bar i{display:block;height:100%;border-radius:3px}
+.stt{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:6px;vertical-align:middle}
+
+/* bars comparison */
+.cmp-grid{grid-template-columns:repeat(auto-fill,minmax(340px,1fr))}
+.bars{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.bar-row{display:grid;grid-template-columns:1fr;gap:4px}
+.bar-row .bl{display:flex;justify-content:space-between;gap:10px;font-size:12px}
+.bar-row .bl .bn{color:var(--text-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:70%}
+.bar-row .bl .bv{font-weight:640;flex:none}
+.bar-track{height:8px;background:var(--card-2);border-radius:5px;overflow:hidden}
+.bar-track i{display:block;height:100%;border-radius:5px;transition:width .9s cubic-bezier(.2,.8,.2,1)}
+
+/* insights */
+.ins-grid{grid-template-columns:repeat(auto-fill,minmax(360px,1fr))}
+.insight{background:var(--card);border:1px solid var(--border);border-left-width:3px;border-radius:var(--radius);padding:17px 18px;transition:.2s}
+.insight:hover{transform:translateY(-2px);box-shadow:var(--shadow);border-color:var(--border-2)}
+.insight.critical{border-left-color:var(--red)} .insight.warning{border-left-color:var(--amber)}
+.insight.positive{border-left-color:var(--green)} .insight.info{border-left-color:var(--blue)}
+.insight .ih{display:flex;align-items:center;gap:9px;margin-bottom:11px}
+.sev{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:6px}
+.sev.critical{background:var(--red-soft);color:var(--red)} .sev.warning{background:var(--amber-soft);color:var(--amber)}
+.sev.positive{background:var(--green-soft);color:var(--green)} .sev.info{background:var(--blue-soft);color:var(--blue)}
+.insight h4{font-size:14px;font-weight:620;letter-spacing:-.01em;flex:1}
+.insight .row{display:flex;gap:8px;margin-top:9px;font-size:12.5px;line-height:1.5}
+.insight .row .tag{flex:none;width:78px;color:var(--text-3);font-weight:600;font-size:11px;padding-top:1px;text-transform:uppercase;letter-spacing:.03em}
+.insight .row .tx{color:var(--text-2)}
+.insight .row.act .tx{color:var(--text)}
+.insight .ev{color:var(--text);font-weight:560;font-family:var(--mono);font-size:11.5px}
+
+/* opportunity */
+.opp-cols{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.opp-col{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;display:flex;flex-direction:column}
+.opp-col .oh{display:flex;align-items:center;gap:9px;margin-bottom:4px}
+.opp-col .oh .oi{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-size:15px;flex:none}
+.opp-col .oh h4{font-size:13.5px;font-weight:620}
+.opp-col .oh .cnt{margin-left:auto;font-size:11px;font-weight:640;color:var(--text-3);background:var(--card-2);padding:2px 8px;border-radius:100px;border:1px solid var(--border)}
+.opp-col .odesc{color:var(--text-3);font-size:11.5px;margin-bottom:12px}
+.opp-item{display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid var(--border)}
+.opp-item .oname{font-size:12px;font-weight:540;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.opp-item .ometa{font-size:10.5px;color:var(--text-3);margin-top:1px}
+.opp-item .oval{margin-left:auto;text-align:right;flex:none}
+.opp-item .oval b{font-size:12.5px;font-weight:680}
+.opp-item .oval span{display:block;font-size:10px;color:var(--text-3)}
+
+/* alerts */
+.alerts{display:flex;flex-direction:column;gap:9px}
+.alert{display:flex;align-items:flex-start;gap:12px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:13px 15px;transition:.18s}
+.alert:hover{border-color:var(--border-2)}
+.alert .ab{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;flex:none;font-size:15px}
+.alert .atxt{flex:1}
+.alert .atxt b{font-weight:620;font-size:13px}
+.alert .atxt p{color:var(--text-3);font-size:12px;margin-top:2px}
+.alert .apri{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:3px 8px;border-radius:6px;flex:none}
+
+/* filters drawer */
+.drawer-bg{position:fixed;inset:0;background:rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:.28s;z-index:80;backdrop-filter:blur(2px)}
+.drawer-bg.on{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;height:100%;width:370px;max-width:90vw;background:var(--bg-elev);border-left:1px solid var(--border);
+  z-index:81;transform:translateX(100%);transition:transform .32s cubic-bezier(.4,0,.1,1);display:flex;flex-direction:column;box-shadow:-20px 0 60px rgba(0,0,0,.4)}
+.drawer.on{transform:translateX(0)}
+.drawer .dh{display:flex;align-items:center;justify-content:space-between;padding:20px;border-bottom:1px solid var(--border)}
+.drawer .dh h3{font-size:16px;font-weight:640}
+.drawer .db{padding:20px;overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:20px}
+.fgroup label{display:block;font-size:11px;font-weight:640;text-transform:uppercase;letter-spacing:.06em;color:var(--text-3);margin-bottom:9px}
+.fgroup select,.fgroup input[type=text]{width:100%}
+.rangev{display:flex;justify-content:space-between;font-size:11.5px;color:var(--text-2);margin-top:8px;font-family:var(--mono)}
+input[type=range]{width:100%;accent-color:var(--brand);margin-top:4px}
+.drawer .df{padding:16px 20px;border-top:1px solid var(--border);display:flex;gap:10px}
+.drawer .df .btn{flex:1;justify-content:center}
+.filtcount{position:absolute;top:-5px;right:-5px;background:var(--brand);color:#fff;font-size:10px;font-weight:700;min-width:17px;height:17px;border-radius:100px;display:grid;place-items:center;padding:0 4px}
+
+/* hover campaign card */
+#campCard{position:fixed;z-index:95;width:290px;background:var(--bg-elev);border:1px solid var(--border-2);border-radius:14px;
+  box-shadow:var(--shadow);padding:16px;opacity:0;pointer-events:none;transition:opacity .14s,transform .14s;transform:translateY(6px)}
+#campCard.on{opacity:1;transform:translateY(0)}
+#campCard .cc-n{font-weight:620;font-size:13px;margin-bottom:2px;line-height:1.3}
+#campCard .cc-pf{color:var(--text-3);font-size:11px;margin-bottom:12px}
+#campCard .cc-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px 12px;margin-bottom:12px}
+#campCard .cc-k{font-size:10px;color:var(--text-3);text-transform:uppercase;letter-spacing:.04em}
+#campCard .cc-v{font-size:15px;font-weight:680;letter-spacing:-.02em}
+#campCard .cc-sec{border-top:1px solid var(--border);padding-top:10px;margin-top:2px}
+#campCard .cc-sec .cc-t{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px;display:flex;align-items:center;gap:5px}
+#campCard .cc-li{font-size:11.5px;color:var(--text-2);padding:2px 0;display:flex;gap:6px}
+#campCard .cc-li:before{content:"›";color:var(--text-3);flex:none}
+
+/* metric tooltip */
+#metricTip{position:fixed;z-index:96;width:300px;background:var(--bg-elev);border:1px solid var(--border-2);border-radius:14px;
+  box-shadow:var(--shadow);padding:16px;opacity:0;pointer-events:none;transition:opacity .14s}
+#metricTip.on{opacity:1}
+#metricTip h5{font-size:13px;font-weight:640;margin-bottom:8px}
+#metricTip .mrow{display:flex;gap:8px;padding:4px 0;font-size:11.5px;border-top:1px solid var(--border)}
+#metricTip .mrow:first-of-type{border-top:none}
+#metricTip .mrow .mk{color:var(--text-3);width:92px;flex:none;font-weight:600}
+#metricTip .mrow .mv{color:var(--text-2)}
+#metricTip .mform{font-family:var(--mono);background:var(--card-2);padding:2px 6px;border-radius:5px;font-size:11px;color:var(--brand-2)}
+
+/* skeleton */
+.skel{background:linear-gradient(100deg,var(--card) 30%,var(--card-2) 50%,var(--card) 70%);
+  background-size:200% 100%;animation:sh 1.3s infinite;border-radius:var(--radius)}
+@keyframes sh{to{background-position:-200% 0}}
+.fade-in{animation:fade .5s ease both}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.stagger>*{animation:fade .5s ease both}
+
+footer{padding:50px 0 40px;color:var(--text-3);font-size:12px;border-top:1px solid var(--border);margin-top:40px}
+.footgrid{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+
+@media(max-width:760px){
+  .tnav{display:none} .hero h1{font-size:26px} .kpi .val{font-size:23px}
+  .wrap{padding:0 15px} .sec-head h2{font-size:18px}
+}
+@media print{
+  header.topbar,.drawer,.drawer-bg,#campCard,#metricTip,.chart-tip,.tools .btn,.exportgrp{display:none!important}
+  body{background:#fff;color:#000} section{padding:16px 0;break-inside:avoid}
+  .panel,.kpi,.insight,.opp-col{box-shadow:none;border-color:#ccc}
+  :root{--bg:#fff;--card:#fff;--text:#000;--text-2:#333;--text-3:#666;--border:#ddd}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= TOPBAR ================= -->
+<header class="topbar">
+  <div class="wrap topbar-in">
+    <div class="logo">
+      <div class="dot">P</div>
+      <div>Prime Day 2026<small>Executive Command Center</small></div>
+    </div>
+    <nav class="tnav" id="tnav">
+      <a href="#summary" class="active">Summary</a>
+      <a href="#trend">Trends</a>
+      <a href="#leaderboard">Leaderboard</a>
+      <a href="#funnel">Funnel</a>
+      <a href="#compare">Compare</a>
+      <a href="#insights">Insights</a>
+      <a href="#opportunity">Opportunities</a>
+    </nav>
+    <div class="spacer"></div>
+    <div class="exportgrp" style="display:flex;gap:7px">
+      <button class="btn" onclick="Exp.pdf()" title="Print / Save as PDF">⤓ PDF</button>
+      <button class="btn" onclick="Exp.excel()" title="Download Excel">⤓ Excel</button>
+      <button class="iconbtn" onclick="App.toggleTheme()" id="themeBtn" title="Toggle theme">◐</button>
+      <button class="iconbtn" onclick="Filters.open()" title="Filters" style="position:relative">⚙<span class="filtcount" id="filtCount" style="display:none">0</span></button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- ============ HERO / NARRATIVE ============ -->
+  <div class="hero fade-in">
+    <div class="eyebrow"><span class="live"></span> Live · 04–06 July 2026 · <span id="rangeCamps"></span> campaigns</div>
+    <h1>Prime Day performance, <span class="grad">read in five minutes.</span></h1>
+    <div class="narrative" id="narrative"><div class="skel" style="height:90px"></div></div>
+  </div>
+
+  <!-- smart alerts -->
+  <section id="alertsSec" style="padding-top:30px">
+    <div class="sec-head"><div><div class="k">Smart Alerts</div><h2>What needs your attention</h2></div></div>
+    <div class="alerts stagger" id="alerts"></div>
+  </section>
+
+  <!-- ============ 1 · EXECUTIVE SUMMARY ============ -->
+  <section id="summary">
+    <div class="sec-head">
+      <div><div class="k">01 · Executive Summary</div><h2>The headline numbers</h2>
+      <p>Blended portfolio KPIs across all filtered campaigns. Hover any <span class="q" style="display:inline-grid;width:15px;height:15px">?</span> for definition, formula, interpretation &amp; benchmark.</p></div>
+    </div>
+    <div class="grid kpi-grid stagger" id="kpis"></div>
+  </section>
+
+  <!-- ============ 2 · DAILY TREND ============ -->
+  <section id="trend">
+    <div class="sec-head">
+      <div><div class="k">02 · Daily Trend</div><h2>How the three days played out</h2></div>
+      <div class="chart-tabs" id="trendTabs"></div>
+    </div>
+    <div class="panel" id="trendPanel"><div class="skel" style="height:320px"></div></div>
+  </section>
+
+  <!-- ============ 3 · LEADERBOARD ============ -->
+  <section id="leaderboard">
+    <div class="sec-head">
+      <div><div class="k">03 · Campaign Leaderboard</div><h2>Every campaign, ranked &amp; scored</h2>
+      <p>Click a header to sort · click a row for full breakdown · hover for a live summary card.</p></div>
+    </div>
+    <div class="tools">
+      <div class="search"><span class="si">⌕</span><input id="tblSearch" placeholder="Search campaigns…" oninput="Table.render()"></div>
+      <select class="sel" id="fPortfolio" onchange="Table.render()"><option value="">All portfolios</option></select>
+      <select class="sel" id="fCat" onchange="Table.render()">
+        <option value="">All performance</option>
+        <option value="hero">★ Heroes (ROAS≥2×)</option>
+        <option value="solid">Solid (ROAS≥ target)</option>
+        <option value="weak">Weak (ROAS&lt;1)</option>
+        <option value="waste">Zero-sale spenders</option>
+      </select>
+      <button class="btn" onclick="Filters.open()">⚙ More filters</button>
+    </div>
+    <div class="tbl-scroll"><table id="lbTable">
+      <thead><tr id="lbHead"></tr></thead>
+      <tbody id="lbBody"></tbody>
+    </table></div>
+    <div style="color:var(--text-3);font-size:11.5px;margin-top:10px" id="lbCount"></div>
+  </section>
+
+  <!-- ============ 4 · FUNNEL ============ -->
+  <section id="funnel">
+    <div class="sec-head"><div><div class="k">04 · Conversion Funnel</div><h2>From impression to revenue</h2>
+    <p>Where the audience converts — and where it leaks.</p></div></div>
+    <div class="grid" style="grid-template-columns:1.4fr 1fr;gap:14px" id="funnelWrap">
+      <div class="panel"><div class="funnel" id="funnel"></div></div>
+      <div class="panel" id="funnelStats"></div>
+    </div>
+  </section>
+
+  <!-- ============ 5 · COMPARE ============ -->
+  <section id="compare">
+    <div class="sec-head"><div><div class="k">05 · Campaign Comparison</div><h2>Leaders &amp; laggards, side by side</h2></div></div>
+    <div class="grid cmp-grid stagger" id="compare"></div>
+  </section>
+
+  <!-- ============ 6 · INSIGHTS ============ -->
+  <section id="insights">
+    <div class="sec-head"><div><div class="k">06 · Executive Insights</div><h2 id="insTitle">Auto-generated observations</h2>
+    <p>Every card: problem · evidence · business impact · recommended action. Generated live from the data.</p></div>
+    <div class="chart-tabs" id="insFilter"></div></div>
+    <div class="grid ins-grid stagger" id="insights"></div>
+  </section>
+
+  <!-- ============ 7 · OPPORTUNITY ============ -->
+  <section id="opportunity">
+    <div class="sec-head"><div><div class="k">07 · Opportunity Center</div><h2>The action list</h2>
+    <p>Where to move budget next — auto-classified by efficiency, headroom and waste.</p></div></div>
+    <div class="opp-cols" id="opps"></div>
+  </section>
+
+  <footer>
+    <div class="footgrid">
+      <div><b style="color:var(--text-2)">Prime Day 2026 · Executive Command Center</b><br>
+      Ad-attributed data · 04–06 Jul 2026 · INR · <span id="footRows"></span> campaign-days</div>
+      <div style="text-align:right">All KPIs computed live in-browser · nothing hardcoded<br>
+      Store total sales ₹3,22,815 · TACOS <span id="footTacos"></span> · Ad share <span id="footAdShare"></span></div>
+    </div>
+  </footer>
+</div>
+
+<!-- floating elements -->
+<div id="campCard"></div>
+<div id="metricTip"></div>
+<div class="chart-tip" id="chartTip"></div>
+
+<!-- filters drawer -->
+<div class="drawer-bg" id="drawerBg" onclick="Filters.close()"></div>
+<aside class="drawer" id="drawer">
+  <div class="dh"><h3>Filters</h3><button class="iconbtn" onclick="Filters.close()">✕</button></div>
+  <div class="db">
+    <div class="fgroup"><label>Campaign search</label><div class="search"><span class="si">⌕</span><input type="text" id="dCamp" placeholder="Name contains…"></div></div>
+    <div class="fgroup"><label>Portfolio</label><select class="sel" id="dPortfolio"><option value="">All portfolios</option></select></div>
+    <div class="fgroup"><label>Date</label><select class="sel" id="dDate"><option value="">All 3 days</option></select></div>
+    <div class="fgroup"><label>Delivery status</label><select class="sel" id="dStatus"><option value="">Any status</option><option>ENABLED</option><option>PAUSED</option></select></div>
+    <div class="fgroup"><label>Performance category</label><select class="sel" id="dCat">
+      <option value="">Any</option><option value="hero">Heroes</option><option value="solid">Solid</option><option value="weak">Weak</option><option value="waste">Zero-sale</option></select></div>
+    <div class="fgroup"><label>Min ROAS <span id="dRoasV" class="mono" style="float:right;color:var(--brand-2)"></span></label><input type="range" id="dRoas" min="0" max="20" step="0.5" value="0"></div>
+    <div class="fgroup"><label>Min Spend (₹) <span id="dSpendV" class="mono" style="float:right;color:var(--brand-2)"></span></label><input type="range" id="dSpend" min="0" max="7000" step="100" value="0"></div>
+    <div class="fgroup"><label>Min Sales (₹) <span id="dSalesV" class="mono" style="float:right;color:var(--brand-2)"></span></label><input type="range" id="dSales" min="0" max="13000" step="250" value="0"></div>
+  </div>
+  <div class="df"><button class="btn" onclick="Filters.reset()">Reset all</button><button class="btn primary" onclick="Filters.apply()">Apply filters</button></div>
+</aside>
+
+<script src="output/data.js"></script>
+<script>
+/* =====================================================================
+   PRIME DAY 2026 — INTELLIGENT EXECUTIVE ENGINE
+   Everything below is computed live from window.__DATA__ (no hardcoding)
+   ===================================================================== */
+const RAW = window.__DATA__.rows;
+const STORE = window.__DATA__.store;
+const $=(s,r=document)=>r.querySelector(s); const $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x)); const clamp01=x=>clamp(x,0,1);
+const sdiv=(a,b)=>b>0?a/b:null;
+const inr=(x,d=0)=>x==null||isNaN(x)?'—':'₹'+Number(x).toLocaleString('en-IN',{maximumFractionDigits:d,minimumFractionDigits:d});
+const inrK=x=>{if(x==null)return'—';const a=Math.abs(x);if(a>=1e5)return '₹'+(x/1e5).toFixed(2)+'L';if(a>=1e3)return '₹'+(x/1e3).toFixed(1)+'k';return '₹'+Math.round(x);};
+const nf=(x,d=0)=>x==null||isNaN(x)?'—':Number(x).toLocaleString('en-IN',{maximumFractionDigits:d});
+const pct=(x,d=1)=>x==null||isNaN(x)?'—':x.toFixed(d)+'%';
+const xr=(x,d=2)=>x==null||isNaN(x)?'—':x.toFixed(d)+'×';
+
+/* ---------- STATE ---------- */
+const State={filters:{camp:'',pf:'',date:'',status:'',cat:'',roas:0,spend:0,sales:0},
+  sort:{key:'sales',dir:-1}, trendMetric:'sales', insFilter:'all'};
+
+/* ---------- AGGREGATION (dynamic) ---------- */
+function aggregate(rows){
+  const m=new Map();
+  for(const r of rows){
+    let c=m.get(r.id);
+    if(!c){c={id:r.id,n:r.n,pf:r.pf,st:r.st,bt:r.bt,days:new Set(),bud:0,imp:0,clk:0,sp:0,ord:0,u:0,sal:0};m.set(r.id,c);}
+    c.days.add(r.d);c.bud+=r.bud;c.imp+=r.imp;c.clk+=r.clk;c.sp+=r.sp;c.ord+=r.ord;c.u+=r.u;c.sal+=r.sal;c.st=r.st;
+  }
+  const out=[...m.values()];
+  for(const c of out){
+    c.nd=c.days.size;
+    c.ctr=sdiv(c.clk,c.imp); if(c.ctr!=null)c.ctr*=100;
+    c.cpc=sdiv(c.sp,c.clk);
+    c.cpm=sdiv(c.sp,c.imp); if(c.cpm!=null)c.cpm*=1000;
+    c.roas=sdiv(c.sal,c.sp);
+    c.acos=sdiv(c.sp,c.sal); if(c.acos!=null)c.acos*=100;
+    c.cvr=sdiv(c.ord,c.clk); if(c.cvr!=null)c.cvr*=100;
+    c.aov=sdiv(c.sal,c.ord);
+    c.rpc=sdiv(c.sal,c.clk);
+    c.cpp=sdiv(c.sp,c.ord);
+    c.util=sdiv(c.sp,c.bud); if(c.util!=null)c.util*=100;
+    c.contrib=c.sal-c.sp;
+  }
+  return out;
+}
+function totals(rows){
+  const t={imp:0,clk:0,sp:0,ord:0,u:0,sal:0,camps:new Set(),bud:0};
+  for(const r of rows){t.imp+=r.imp;t.clk+=r.clk;t.sp+=r.sp;t.ord+=r.ord;t.u+=r.u;t.sal+=r.sal;t.bud+=r.bud;t.camps.add(r.id);}
+  t.n=t.camps.size;
+  t.ctr=sdiv(t.clk,t.imp)*100; t.cpc=sdiv(t.sp,t.clk); t.cpm=sdiv(t.sp,t.imp)*1000;
+  t.roas=sdiv(t.sal,t.sp); t.acos=sdiv(t.sp,t.sal)*100; t.cvr=sdiv(t.ord,t.clk)*100;
+  t.aov=sdiv(t.sal,t.ord); t.rpc=sdiv(t.sal,t.clk); t.rpi=sdiv(t.sal,t.imp); t.cpp=sdiv(t.sp,t.ord);
+  t.util=sdiv(t.sp,t.bud)*100;
+  return t;
+}
+function daily(rows){
+  const m=new Map();
+  for(const r of rows){let d=m.get(r.d);if(!d){d={d:r.d,imp:0,clk:0,sp:0,ord:0,u:0,sal:0};m.set(r.d,d);}
+    d.imp+=r.imp;d.clk+=r.clk;d.sp+=r.sp;d.ord+=r.ord;d.u+=r.u;d.sal+=r.sal;}
+  const out=[...m.values()].sort((a,b)=>a.d<b.d?-1:1);
+  for(const d of out){d.roas=sdiv(d.sal,d.sp);d.acos=sdiv(d.sp,d.sal)*100;d.ctr=sdiv(d.clk,d.imp)*100;}
+  return out;
+}
+
+/* ---------- BENCHMARKS (portfolio-relative, dynamic) ---------- */
+function benchmarks(camps,tot){
+  const sales=camps.map(c=>c.sal).sort((a,b)=>a-b);
+  const p=(arr,q)=>arr.length?arr[clamp(Math.floor(q*arr.length),0,arr.length-1)]:0;
+  return {roas:tot.roas,acos:tot.acos,ctr:tot.ctr,cvr:tot.cvr,
+    p90sal:p(sales,.9),p75sal:p(sales,.75),medSal:p(sales,.5),
+    spendP75:p(camps.map(c=>c.sp).sort((a,b)=>a-b),.75),
+    spendMed:p(camps.map(c=>c.sp).sort((a,b)=>a-b),.5)};
+}
+
+/* ---------- HEALTH SCORE (0..100) ---------- */
+function health(c,bm){
+  if(c.sp===0&&c.sal===0) return {score:0,band:'critical'};
+  const roasS = c.roas==null?0: clamp01(c.roas/(2*bm.roas))*100;         // 25
+  const cvrS  = c.cvr==null?0: clamp01(c.cvr/(2*(bm.cvr||1)))*100;        // 18
+  const ctrS  = c.ctr==null?0: clamp01(c.ctr/(2*(bm.ctr||1)))*100;       // 12
+  const effS  = c.sal>0? clamp01(1-(c.acos/100)/1.5)*100 : (c.sp>0?0:50); // 20 (acos based)
+  const salS  = clamp01(c.sal/(bm.p90sal||1))*100;                       // 15
+  let uS;                                                                 // 10 band 30-95% ideal
+  if(c.util==null)uS=40; else if(c.util>=30&&c.util<=95)uS=100; else if(c.util<30)uS=clamp01(c.util/30)*100; else uS=clamp01(1-(c.util-95)/60)*100;
+  const score=Math.round(roasS*.25+cvrS*.18+ctrS*.12+effS*.20+salS*.15+uS*.10);
+  const band = score>=75?'excellent':score>=55?'good':score>=35?'attention':'critical';
+  return {score,band,parts:{roasS,cvrS,ctrS,effS,salS,uS}};
+}
+const BANDMETA={excellent:{c:'var(--green)',t:'Excellent'},good:{c:'var(--blue)',t:'Good'},
+  attention:{c:'var(--amber)',t:'Needs Attention'},critical:{c:'var(--red)',t:'Critical'}};
+
+/* ---------- FILTER PIPELINE ---------- */
+function filteredRows(){
+  const f=State.filters;
+  return RAW.filter(r=>{
+    if(f.date&&r.d!==f.date)return false;
+    if(f.pf&&r.pf!==f.pf)return false;
+    if(f.status&&r.st!==f.status)return false;
+    if(f.camp&&!r.n.toLowerCase().includes(f.camp.toLowerCase()))return false;
+    return true;
+  });
+}
+function catOf(c,bm){
+  if(c.sp>0&&c.sal===0)return'waste';
+  if(c.roas!=null&&c.roas>=2*bm.roas)return'hero';
+  if(c.roas!=null&&c.roas>=bm.roas)return'solid';
+  if(c.roas!=null&&c.roas<1)return'weak';
+  return'solid';
+}
+function filteredCamps(){
+  const rows=filteredRows(); let camps=aggregate(rows);
+  const tot=totals(rows); const bm=benchmarks(camps,tot);
+  const f=State.filters;
+  camps=camps.filter(c=>{
+    if(f.roas&&(c.roas==null||c.roas<f.roas))return false;
+    if(f.spend&&c.sp<f.spend)return false;
+    if(f.sales&&c.sal<f.sales)return false;
+    if(f.cat&&catOf(c,bm)!==f.cat)return false;
+    return true;
+  });
+  camps.forEach(c=>{c.h=health(c,bm);c.cat=catOf(c,bm);});
+  return {camps,tot,bm};
+}
+
+/* =====================================================================
+   RENDER
+   ===================================================================== */
+const App={
+  boot(){
+    // populate selects
+    const pfs=[...new Set(RAW.map(r=>r.pf))].sort();
+    const dates=[...new Set(RAW.map(r=>r.d))].sort();
+    ['#fPortfolio','#dPortfolio'].forEach(s=>{const el=$(s);pfs.forEach(p=>el.insertAdjacentHTML('beforeend',`<option>${p}</option>`));});
+    dates.forEach(d=>$('#dDate').insertAdjacentHTML('beforeend',`<option value="${d}">${fmtDate(d)}</option>`));
+    $('#rangeCamps').textContent=new Set(RAW.map(r=>r.id)).size;
+    $('#footRows').textContent=RAW.length;
+    Filters.wireRanges();
+    setTimeout(()=>this.renderAll(),450); // skeleton beat
+    this.scrollSpy();
+  },
+  renderAll(){
+    const D=filteredCamps();
+    Cards.narrative(D); Alerts.render(D); Cards.kpis(D); Trend.init(D);
+    Table.data=D; Table.build(); Funnel.render(D); Compare.render(D);
+    Insights.data=Insights.generate(D); Insights.renderFilter(); Insights.render();
+    Opp.render(D); footer(D);
+  },
+  toggleTheme(){const h=document.documentElement;h.dataset.theme=h.dataset.theme==='dark'?'light':'dark';
+    $('#themeBtn').textContent=h.dataset.theme==='dark'?'◐':'○';
+    if(Trend.D)Trend.draw();}
+  ,scrollSpy(){
+    const links=$$('#tnav a');const secs=links.map(a=>$(a.getAttribute('href')));
+    addEventListener('scroll',()=>{let i=secs.length-1;for(;i>=0;i--){if(secs[i]&&secs[i].getBoundingClientRect().top<120)break;}
+      links.forEach(l=>l.classList.remove('active'));if(links[i])links[i].classList.add('active');},{passive:true});
+  }
+};
+function fmtDate(d){const[y,m,dd]=d.split('-');return['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][+m-1]+' '+(+dd);}
+function footer(D){$('#footTacos').textContent=pct(D.tot.sp/STORE.total_sales*100);
+  $('#footAdShare').textContent=pct(D.tot.sal/STORE.total_sales*100);}
+
+/* ---------- NARRATIVE ---------- */
+const Cards={
+  narrative(D){
+    const{camps,tot}=D; if(!camps.length){$('#narrative').textContent='No campaigns match the current filters.';return;}
+    const bySales=[...camps].sort((a,b)=>b.sal-a.sal);
+    const top2=bySales.slice(0,2); const top2Share=(top2.reduce((s,c)=>s+c.sal,0)/tot.sal*100);
+    const top5Share=bySales.slice(0,5).reduce((s,c)=>s+c.sal,0)/tot.sal*100;
+    const waste=camps.filter(c=>c.sp>0&&c.sal===0); const wasteSp=waste.reduce((s,c)=>s+c.sp,0);
+    const bestRoas=[...camps].filter(c=>c.sp>0).sort((a,b)=>b.roas-a.roas)[0];
+    const dl=daily(filteredRows()); const peak=[...dl].sort((a,b)=>b.sal-a.sal)[0];
+    const verdict = tot.roas>=3?'a strong, profitable event':tot.roas>=2?'a solid, efficient event':'an event that needs tightening';
+    $('#narrative').innerHTML=
+      `The portfolio turned <b>${inr(tot.sp)}</b> of ad spend into <b>${inr(tot.sal)}</b> of attributed sales — a blended
+       <b>${xr(tot.roas)} ROAS</b> at <b>${pct(tot.acos)} ACOS</b>, making Prime Day <b>${verdict}</b>.
+       Revenue is concentrated: <b>${top2[0].n.slice(0,34)}</b>${top2[1]?` and <b>${top2[1].n.slice(0,30)}</b>`:''}
+       alone drove <b>${pct(top2Share)}</b> of sales, and the top 5 campaigns delivered <b>${pct(top5Share)}</b>.
+       Peak trading was <b>${fmtDate(peak.d)}</b> (${inr(peak.sal)}). The clearest win is
+       <b>${bestRoas.n.slice(0,32)}</b> at <b>${xr(bestRoas.roas)}</b> ROAS${bestRoas.sp<tot.sp*0.03?' on minimal spend':''}.
+       ${waste.length?`The clearest leak: <b>${waste.length} campaigns</b> spent <b>${inr(wasteSp)}</b> with zero attributed sales — ${pct(wasteSp/tot.sp*100)} of budget to reclaim.`:''}`;
+  },
+  kpis(D){
+    const{tot}=D; const dl=daily(filteredRows());
+    const spark=k=>dl.map(d=>d[k]);
+    const defs=[
+      {k:'sal',lbl:'Total Sales',val:inrK(tot.sal),sub:`${nf(tot.n)} campaigns`,acc:'var(--green)',m:'sales',spk:spark('sal')},
+      {k:'sp',lbl:'Total Spend',val:inrK(tot.sp),sub:`${pct(tot.util)} of budget used`,acc:'var(--brand)',m:'spend',spk:spark('sp')},
+      {k:'roas',lbl:'Blended ROAS',val:xr(tot.roas),sub:tot.roas>=2.5?'Healthy':'Below target',acc:tot.roas>=2.5?'var(--green)':'var(--amber)',m:'roas',spk:spark('roas'),chip:tot.roas>=2.5?['up','Efficient']:['neu','Watch']},
+      {k:'acos',lbl:'ACOS',val:pct(tot.acos),sub:tot.acos<=35?'Within target':'Above target',acc:tot.acos<=35?'var(--green)':'var(--amber)',m:'acos'},
+      {k:'ord',lbl:'Orders',val:nf(tot.ord),sub:`AOV ${inr(tot.aov)}`,acc:'var(--blue)',m:'orders',spk:spark('ord')},
+      {k:'u',lbl:'Units Sold',val:nf(tot.u),sub:`${(tot.u/tot.ord).toFixed(2)} units/order`,acc:'var(--blue)',m:'units'},
+      {k:'ctr',lbl:'CTR',val:pct(tot.ctr,2),sub:`${nf(tot.clk)} clicks`,acc:'var(--brand)',m:'ctr'},
+      {k:'cvr',lbl:'Conversion Rate',val:pct(tot.cvr,1),sub:'orders / click',acc:'var(--green)',m:'cvr'},
+      {k:'util',lbl:'Budget Utilization',val:pct(tot.util),sub:tot.util<50?'Large headroom':'Well used',acc:'var(--amber)',m:'util'},
+    ];
+    $('#kpis').innerHTML=defs.map(d=>`
+      <div class="kpi" style="animation-delay:${Math.random()*.2}s">
+        <div class="accent" style="background:${d.acc}"></div>
+        <div class="top"><div class="lbl">${d.lbl}<span class="q" data-metric="${d.m}">?</span></div>
+        ${d.chip?`<span class="chip ${d.chip[0]}">${d.chip[1]}</span>`:''}</div>
+        <div class="val num">${d.val}</div>
+        <div class="sub">${d.sub}</div>
+        ${d.spk?sparkSVG(d.spk):''}
+      </div>`).join('');
+    $$('.q[data-metric]').forEach(q=>{q.onmouseenter=e=>MetricTip.show(e,q.dataset.metric);q.onmouseleave=()=>MetricTip.hide();});
+  }
+};
+function sparkSVG(arr){
+  const w=214,h=34,mx=Math.max(...arr,1),mn=Math.min(...arr,0);
+  const pts=arr.map((v,i)=>[i/(arr.length-1)*w,h-4-((v-mn)/((mx-mn)||1))*(h-8)]);
+  const d=pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' ');
+  return `<svg class="spark" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">
+    <path d="${d}" fill="none" stroke="var(--brand)" stroke-width="1.6" opacity=".55"/>
+    <path d="${d} L${w} ${h} L0 ${h} Z" fill="url(#sg)" opacity=".12"/>
+    <defs><linearGradient id="sg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--brand)"/><stop offset="1" stop-color="var(--brand)" stop-opacity="0"/></linearGradient></defs></svg>`;
+}
+
+/* ---------- METRIC EXPLAINER ---------- */
+const METRICS={
+  sales:{n:'Total Sales',f:'Σ ad-attributed sales',w:'Revenue Amazon attributes to your ads within the attribution window.',i:'The top line of ad performance — what the spend produced.',b:'Higher is better; judge against spend via ROAS.'},
+  spend:{n:'Total Spend',f:'Σ (CPC × Clicks)',w:'Total ad cost. Derived from CPC×Clicks (no native spend column in source).',i:'Your Prime Day investment. Watch that it flows to efficient campaigns.',b:'Keep ACOS ≤ target; utilization 60–90% of budget.'},
+  roas:{n:'ROAS',f:'Sales ÷ Spend',w:'Return on ad spend — revenue per ₹1 of ads.',i:'The single best efficiency signal. 3× means ₹3 back per ₹1 spent.',b:'≥3× strong · 2–3× acceptable · <2× review.'},
+  acos:{n:'ACOS',f:'Spend ÷ Sales × 100',w:'Advertising cost of sale — inverse of ROAS.',i:'What share of ad revenue was eaten by ad cost.',b:'≤25% excellent · 25–40% healthy · >40% too costly.'},
+  orders:{n:'Orders',f:'Σ purchases from clicks',w:'Number of attributed orders.',i:'Volume of demand your ads captured.',b:'Pair with AOV and CVR to judge quality.'},
+  units:{n:'Units Sold',f:'Σ attributed units',w:'Total product units attributed to ads.',i:'Basket depth — units per order shows bundling.',b:'>1 unit/order signals cross-sell.'},
+  ctr:{n:'CTR',f:'Clicks ÷ Impressions × 100',w:'Click-through rate — creative & relevance signal.',i:'How compelling the ad is to shoppers who see it.',b:'SP ~0.3–0.5% typical; higher is better.'},
+  cvr:{n:'Conversion Rate',f:'Orders ÷ Clicks × 100',w:'Share of clicks that became orders.',i:'Landing-page & offer strength after the click.',b:'8–15% healthy for Prime Day traffic.'},
+  util:{n:'Budget Utilization',f:'Spend ÷ Σ Daily Budget × 100',w:'How much of the allotted budget was actually spent.',i:'Low = headroom to scale winners; ~100%+ = capped, losing impressions.',b:'60–90% healthy; >100% means budget-limited.'},
+};
+const MetricTip={el:$('#metricTip'),
+  show(e,key){const m=METRICS[key];if(!m)return;
+    this.el.innerHTML=`<h5>${m.n}</h5>
+      <div class="mrow"><span class="mk">Formula</span><span class="mv"><span class="mform">${m.f}</span></span></div>
+      <div class="mrow"><span class="mk">Meaning</span><span class="mv">${m.w}</span></div>
+      <div class="mrow"><span class="mk">Read as</span><span class="mv">${m.i}</span></div>
+      <div class="mrow"><span class="mk">Benchmark</span><span class="mv">${m.b}</span></div>`;
+    this.el.classList.add('on');this.pos(e);},
+  pos(e){const r=this.el.getBoundingClientRect();let x=e.clientX+14,y=e.clientY+14;
+    if(x+r.width>innerWidth-10)x=e.clientX-r.width-14;if(y+r.height>innerHeight-10)y=innerHeight-r.height-10;
+    this.el.style.left=x+'px';this.el.style.top=y+'px';},
+  hide(){this.el.classList.remove('on');}
+};
+
+/* ---------- SMART ALERTS ---------- */
+const Alerts={
+  render(D){
+    const{camps,tot}=D;const A=[];
+    const waste=camps.filter(c=>c.sp>0&&c.sal===0);const wasteSp=waste.reduce((s,c)=>s+c.sp,0);
+    if(waste.length)A.push({s:'critical',i:'⚠',t:'Budget bleeding on zero-sale campaigns',
+      p:`${waste.length} campaigns spent ${inr(wasteSp)} (${pct(wasteSp/tot.sp*100)} of spend) with no attributed sales.`,pri:'high'});
+    const hiAcos=camps.filter(c=>c.sal>0&&c.acos>100).sort((a,b)=>b.acos-a.acos);
+    if(hiAcos.length)A.push({s:'critical',i:'▲',t:'Campaigns losing money (ACOS > 100%)',
+      p:`${hiAcos.length} selling campaigns cost more than they earn — worst: ${hiAcos[0].n.slice(0,38)} at ${pct(hiAcos[0].acos)} ACOS.`,pri:'high'});
+    const capped=camps.filter(c=>c.util>=95&&c.roas>=tot.roas);
+    if(capped.length)A.push({s:'warning',i:'⛽',t:'Winning campaigns are budget-capped',
+      p:`${capped.length} above-average-ROAS campaigns hit ~100% of budget — you're leaving impressions (and sales) on the table.`,pri:'high'});
+    const lowRoas=camps.filter(c=>c.sp>tot.sp*0.03&&c.roas!=null&&c.roas<1);
+    if(lowRoas.length)A.push({s:'warning',i:'📉',t:'High-spend, low-ROAS campaigns',
+      p:`${lowRoas.length} campaigns each consume >3% of spend at ROAS < 1×. Biggest: ${lowRoas.sort((a,b)=>b.sp-a.sp)[0].n.slice(0,34)}.`,pri:'med'});
+    const dl=daily(filteredRows());
+    if(dl.length>=2){const last=dl[dl.length-1],prev=dl[dl.length-2];
+      if(last.sal<prev.sal*0.9)A.push({s:'warning',i:'↘',t:'Sales dipped on the final day',
+        p:`${fmtDate(last.d)} sales (${inr(last.sal)}) fell ${pct((1-last.sal/prev.sal)*100)} vs ${fmtDate(prev.d)}.`,pri:'med'});
+      if(last.sp>prev.sp*1.15)A.push({s:'info',i:'⚡',t:'Spend spike detected',
+        p:`Spend rose ${pct((last.sp/prev.sp-1)*100)} on ${fmtDate(last.d)} — confirm it tracked with sales.`,pri:'low'});
+    }
+    const gems=camps.filter(c=>c.roas>=3*tot.roas&&c.sp<tot.sp*0.02&&c.sal>0);
+    if(gems.length)A.push({s:'positive',i:'✦',t:'Under-funded winners found',
+      p:`${gems.length} campaigns deliver ≥3× the portfolio ROAS on <2% of spend — prime candidates to scale.`,pri:'high'});
+    if(tot.util<40)A.push({s:'info',i:'◔',t:'Large unused budget headroom',
+      p:`Only ${pct(tot.util)} of daily budget was spent — significant room to scale efficient campaigns.`,pri:'low'});
+    const PM={high:['var(--red-soft)','var(--red)'],med:['var(--amber-soft)','var(--amber)'],low:['var(--blue-soft)','var(--blue)']};
+    $('#alerts').innerHTML=A.length?A.map(a=>`
+      <div class="alert">
+        <div class="ab" style="background:var(--${a.s==='positive'?'green':a.s==='info'?'blue':a.s==='warning'?'amber':'red'}-soft);color:var(--${a.s==='positive'?'green':a.s==='info'?'blue':a.s==='warning'?'amber':'red'})">${a.i}</div>
+        <div class="atxt"><b>${a.t}</b><p>${a.p}</p></div>
+        <span class="apri" style="background:${PM[a.pri][0]};color:${PM[a.pri][1]}">${a.pri}</span>
+      </div>`).join(''):`<div class="alert"><div class="ab" style="background:var(--green-soft);color:var(--green)">✓</div><div class="atxt"><b>All clear</b><p>No material alerts for the current selection.</p></div></div>`;
+  }
+};
+
+/* ---------- TREND CHART ---------- */
+const Trend={
+  metrics:{sales:{k:'sal',lbl:'Daily Sales',fmt:inrK,col:'var(--green)'},
+    spend:{k:'sp',lbl:'Daily Spend',fmt:inrK,col:'var(--brand)'},
+    roas:{k:'roas',lbl:'Daily ROAS',fmt:v=>xr(v),col:'var(--blue)'},
+    acos:{k:'acos',lbl:'Daily ACOS',fmt:v=>pct(v),col:'var(--amber)'},
+    orders:{k:'ord',lbl:'Daily Orders',fmt:v=>nf(v),col:'var(--red)'}},
+  init(D){this.D=daily(filteredRows());
+    $('#trendTabs').innerHTML=Object.entries(this.metrics).map(([k,m])=>`<button class="${k===State.trendMetric?'on':''}" onclick="Trend.pick('${k}')">${m.lbl.replace('Daily ','')}</button>`).join('');
+    this.draw();},
+  pick(k){State.trendMetric=k;$$('#trendTabs button').forEach((b,i)=>b.classList.toggle('on',Object.keys(this.metrics)[i]===k));this.draw();},
+  draw(){
+    const m=this.metrics[State.trendMetric];const data=this.D;if(!data||!data.length){$('#trendPanel').innerHTML='<div style="color:var(--text-3);padding:40px;text-align:center">No data for current filters.</div>';return;}
+    const W=980,H=340,pl=64,pr=24,pt=24,pb=44;const iw=W-pl-pr,ih=H-pt-pb;
+    const vals=data.map(d=>d[m.k]||0);let mx=Math.max(...vals),mn=Math.min(...vals,0);if(mx===mn)mx=mn+1;mx*=1.12;
+    const X=i=>pl+(data.length===1?iw/2:i/(data.length-1)*iw);
+    const Y=v=>pt+ih-((v-mn)/(mx-mn))*ih;
+    let grid='',lbls='';for(let g=0;g<=4;g++){const v=mn+(mx-mn)*g/4,y=Y(v);
+      grid+=`<line class="grid-line" x1="${pl}" y1="${y}" x2="${W-pr}" y2="${y}"/>`;
+      lbls+=`<text x="${pl-10}" y="${y+4}" text-anchor="end" font-size="11">${m.fmt(v)}</text>`;}
+    const pts=data.map((d,i)=>[X(i),Y(d[m.k]||0)]);
+    const line=pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' ');
+    const area=line+` L${pts[pts.length-1][0]} ${pt+ih} L${pts[0][0]} ${pt+ih} Z`;
+    let dots='',xl='';data.forEach((d,i)=>{dots+=`<circle cx="${X(i)}" cy="${Y(d[m.k]||0)}" r="5" fill="${m.col}" stroke="var(--card)" stroke-width="3"
+        data-i="${i}" class="tdot" style="cursor:pointer"/>`;
+      xl+=`<text x="${X(i)}" y="${H-16}" text-anchor="middle" font-size="12" font-weight="600" fill="var(--text-2)">${fmtDate(d.d)}</text>`;});
+    $('#trendPanel').innerHTML=`
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+        <div><div style="font-size:13px;font-weight:620">${m.lbl}</div>
+        <div style="color:var(--text-3);font-size:11.5px">Hover points for detail · 04–06 Jul 2026</div></div>
+        <button class="btn" onclick="Exp.png($('#trendSvg'),'daily-${State.trendMetric}')">⤓ PNG</button></div>
+      <svg id="trendSvg" viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block">
+        <defs><linearGradient id="ag" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${m.col}" stop-opacity=".28"/><stop offset="1" stop-color="${m.col}" stop-opacity="0"/></linearGradient></defs>
+        ${grid}${lbls}
+        <path d="${area}" fill="url(#ag)"/>
+        <path d="${line}" fill="none" stroke="${m.col}" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
+        ${dots}${xl}
+      </svg>`;
+    $$('#trendPanel .tdot').forEach(dot=>{dot.onmouseenter=e=>{const d=data[+dot.dataset.i];
+      ChartTip.show(e,`<div class="t-d">${fmtDate(d.d)}</div>
+        <div class="t-r"><span>Sales</span><b>${inr(d.sal)}</b></div>
+        <div class="t-r"><span>Spend</span><b>${inr(d.sp)}</b></div>
+        <div class="t-r"><span>ROAS</span><b>${xr(d.roas)}</b></div>
+        <div class="t-r"><span>ACOS</span><b>${pct(d.acos)}</b></div>
+        <div class="t-r"><span>Orders</span><b>${nf(d.ord)}</b></div>`);
+      dot.setAttribute('r',7);};
+      dot.onmouseleave=()=>{ChartTip.hide();dot.setAttribute('r',5);};});
+  }
+};
+const ChartTip={el:$('#chartTip'),show(e,html){this.el.innerHTML=html;this.el.style.opacity=1;this.move(e);},
+  move(e){const r=this.el.getBoundingClientRect();let x=e.clientX+14,y=e.clientY-10;
+    if(x+r.width>innerWidth-10)x=e.clientX-r.width-14;this.el.style.left=x+'px';this.el.style.top=y+'px';},
+  hide(){this.el.style.opacity=0;}};
+addEventListener('mousemove',e=>{if(ChartTip.el.style.opacity==1)ChartTip.move(e);},{passive:true});
+
+/* ---------- LEADERBOARD TABLE ---------- */
+const COLS=[
+  {k:'n',t:'Campaign',fmt:c=>`<div class="cname">${esc(c.n)}</div><div class="cpf">${esc(c.pf)} · ${c.nd}d · ${c.st}</div>`,al:'left'},
+  {k:'h',t:'Health',fmt:c=>healthCell(c.h),v:c=>c.h.score},
+  {k:'sp',t:'Spend',fmt:c=>inr(c.sp)},
+  {k:'sal',t:'Sales',fmt:c=>inr(c.sal)},
+  {k:'roas',t:'ROAS',fmt:c=>pillRoas(c.roas)},
+  {k:'acos',t:'ACOS',fmt:c=>pillAcos(c.acos)},
+  {k:'ord',t:'Orders',fmt:c=>nf(c.ord)},
+  {k:'u',t:'Units',fmt:c=>nf(c.u)},
+  {k:'ctr',t:'CTR',fmt:c=>pct(c.ctr,2)},
+  {k:'cvr',t:'Conv',fmt:c=>pct(c.cvr,1)},
+  {k:'util',t:'Budget',fmt:c=>utilCell(c.util)},
+];
+function esc(s){return(s||'').replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));}
+function healthCell(h){return `<span class="hs"><span class="bar"><i style="width:${h.score}%;background:${BANDMETA[h.band].c}"></i></span><b style="color:${BANDMETA[h.band].c}">${h.score}</b></span>`;}
+function pillRoas(r){if(r==null)return '<span class="cpf">—</span>';const c=r>=3?'green':r>=1.5?'blue':r>=1?'amber':'red';
+  return `<span class="pill" style="background:var(--${c}-soft);color:var(--${c})">${xr(r)}</span>`;}
+function pillAcos(a){if(a==null)return '<span class="cpf">—</span>';const c=a<=25?'green':a<=40?'blue':a<=70?'amber':'red';
+  return `<span class="pill" style="background:var(--${c}-soft);color:var(--${c})">${pct(a)}</span>`;}
+function utilCell(u){if(u==null)return '—';const c=u>=95?'red':u>=60?'green':u>=25?'blue':'amber';
+  return `<span class="pill" style="background:var(--${c}-soft);color:var(--${c})">${pct(u,0)}</span>`;}
+const Table={
+  build(){$('#lbHead').innerHTML=COLS.map(c=>`<th data-k="${c.k}" onclick="Table.sortBy('${c.k}')" style="text-align:${c.al||'right'}">${c.t}<span class="ar">▾</span></th>`).join('');this.render();},
+  sortBy(k){if(State.sort.key===k)State.sort.dir*=-1;else{State.sort.key=k;State.sort.dir=-1;}this.render();},
+  render(){
+    let cs=[...this.data.camps];
+    const q=$('#tblSearch').value.toLowerCase(),pf=$('#fPortfolio').value,cat=$('#fCat').value;
+    if(q)cs=cs.filter(c=>c.n.toLowerCase().includes(q));
+    if(pf)cs=cs.filter(c=>c.pf===pf); if(cat)cs=cs.filter(c=>c.cat===cat);
+    const sk=State.sort.key,dir=State.sort.dir;
+    const gv=(c)=>{const col=COLS.find(x=>x.k===sk);const v=col&&col.v?col.v(c):c[sk];return v==null?-Infinity:(typeof v==='string'?v.toLowerCase():v);};
+    cs.sort((a,b)=>{const x=gv(a),y=gv(b);return x<y?-1*dir:x>y?dir:0;});
+    $$('#lbHead th').forEach(th=>{th.classList.toggle('sorted',th.dataset.k===sk);
+      const ar=th.querySelector('.ar');if(ar)ar.textContent=dir<0?'▾':'▴';});
+    $('#lbBody').innerHTML=cs.map(c=>`<tr data-id="${c.id}">${COLS.map(col=>`<td style="text-align:${col.al||'right'}">${col.fmt(c)}</td>`).join('')}</tr>`).join('');
+    $('#lbCount').textContent=`Showing ${cs.length} of ${this.data.camps.length} campaigns · ${inr(cs.reduce((s,c)=>s+c.sp,0))} spend · ${inr(cs.reduce((s,c)=>s+c.sal,0))} sales`;
+    $$('#lbBody tr').forEach(tr=>{const c=cs.find(x=>x.id===tr.dataset.id);
+      tr.onmouseenter=e=>CampCard.show(e,c);tr.onmousemove=e=>CampCard.move(e);tr.onmouseleave=()=>CampCard.hide();
+      tr.onclick=()=>CampCard.pin(c);});
+  }
+};
+
+/* ---------- CAMPAIGN HOVER CARD ---------- */
+const CampCard={el:$('#campCard'),pinned:false,
+  build(c){const b=BANDMETA[c.h.band];
+    const strengths=[],weak=[],recs=[];
+    const T=Table.data.tot;
+    if(c.roas!=null&&c.roas>=2*T.roas)strengths.push(`Elite ROAS (${xr(c.roas)})`);
+    if(c.cvr!=null&&c.cvr>=T.cvr*1.3)strengths.push(`Strong conversion (${pct(c.cvr)})`);
+    if(c.ctr!=null&&c.ctr>=T.ctr*1.3)strengths.push(`High CTR (${pct(c.ctr,2)})`);
+    if(c.sal>=T.sal*0.03)strengths.push(`Meaningful sales volume`);
+    if(c.sp>0&&c.sal===0)weak.push(`Zero sales on ${inr(c.sp)} spend`);
+    if(c.acos!=null&&c.acos>70)weak.push(`ACOS ${pct(c.acos)} — costly`);
+    if(c.ctr!=null&&c.ctr<T.ctr*0.6)weak.push(`Weak CTR (${pct(c.ctr,2)})`);
+    if(c.util!=null&&c.util>=95)weak.push(`Budget-capped (${pct(c.util,0)})`);
+    if(c.cvr!=null&&c.cvr<T.cvr*0.5&&c.clk>5)weak.push(`Low conversion (${pct(c.cvr)})`);
+    if(c.sp>0&&c.sal===0)recs.push('Pause & reallocate budget');
+    else if(c.roas!=null&&c.roas>=2*T.roas&&c.util<80)recs.push('Scale — raise budget/bids');
+    else if(c.acos!=null&&c.acos>70)recs.push('Cut bids or add negatives');
+    else if(c.util>=95&&c.roas>=T.roas)recs.push('Increase budget — capped winner');
+    else recs.push('Maintain & monitor');
+    if(!strengths.length)strengths.push('No standout strengths');
+    if(!weak.length)weak.push('No major weaknesses');
+    return `<div class="cc-n">${esc(c.n)}</div><div class="cc-pf">${esc(c.pf)} · ${c.st} · ${c.nd} days · Health <b style="color:${b.c}">${c.h.score} ${b.t}</b></div>
+      <div class="cc-grid">
+        <div><div class="cc-k">Spend</div><div class="cc-v num">${inr(c.sp)}</div></div>
+        <div><div class="cc-k">Sales</div><div class="cc-v num">${inr(c.sal)}</div></div>
+        <div><div class="cc-k">ROAS</div><div class="cc-v num" style="color:${c.roas>=T.roas?'var(--green)':'var(--amber)'}">${xr(c.roas)}</div></div>
+        <div><div class="cc-k">ACOS</div><div class="cc-v num">${pct(c.acos)}</div></div>
+      </div>
+      <div class="cc-sec"><div class="cc-t" style="color:var(--green)">✓ Strengths</div>${strengths.map(s=>`<div class="cc-li">${s}</div>`).join('')}</div>
+      <div class="cc-sec"><div class="cc-t" style="color:var(--amber)">△ Weaknesses</div>${weak.map(s=>`<div class="cc-li">${s}</div>`).join('')}</div>
+      <div class="cc-sec"><div class="cc-t" style="color:var(--brand-2)">➜ Recommendation</div><div class="cc-li">${recs[0]}</div></div>`;
+  },
+  show(e,c){if(this.pinned)return;this.el.innerHTML=this.build(c);this.el.classList.add('on');this.move(e);},
+  move(e){if(this.pinned)return;const r=this.el.getBoundingClientRect();let x=e.clientX+18,y=e.clientY-20;
+    if(x+r.width>innerWidth-10)x=e.clientX-r.width-18;if(y+r.height>innerHeight-10)y=innerHeight-r.height-12;if(y<10)y=10;
+    this.el.style.left=x+'px';this.el.style.top=y+'px';},
+  hide(){if(this.pinned)return;this.el.classList.remove('on');},
+  pin(c){this.pinned=false;this.el.innerHTML=this.build(c)+`<div style="margin-top:12px;text-align:center"><button class="btn" onclick="CampCard.unpin()">Close</button></div>`;
+    this.pinned=true;this.el.classList.add('on');this.el.style.left=Math.max(10,(innerWidth-310)/2)+'px';this.el.style.top='90px';},
+  unpin(){this.pinned=false;this.el.classList.remove('on');}
+};
+
+/* ---------- FUNNEL ---------- */
+const Funnel={
+  render(D){
+    const{tot}=D;
+    const stages=[
+      {i:'👁',n:'Impressions',v:tot.imp,fmt:nf,sub:'Ads shown'},
+      {i:'🖱',n:'Clicks',v:tot.clk,fmt:nf,sub:`CTR ${pct(tot.ctr,2)}`},
+      {i:'🛒',n:'Orders',v:tot.ord,fmt:nf,sub:`CVR ${pct(tot.cvr,1)}`},
+    ];
+    const mx=stages[0].v;
+    let html='';
+    stages.forEach((s,i)=>{
+      html+=`<div class="fstage"><div class="fill" style="width:${Math.max(6,s.v/mx*100)}%"></div>
+        <div class="fc"><div class="fl"><div class="fi">${s.i}</div><div><div class="fname">${s.n}</div><div class="fsub">${s.sub}</div></div></div>
+        <div class="fval num">${s.fmt(s.v)}</div></div></div>`;
+      if(i<stages.length-1){const conv=stages[i+1].v/s.v*100,drop=100-conv;
+        html+=`<div class="fconv"><span class="r">▼ ${pct(conv)} continue</span><span style="color:var(--red)">${pct(drop)} drop-off</span></div>`;}
+    });
+    $('#funnel').innerHTML=html;
+    $('#funnelStats').innerHTML=`
+      <div style="font-size:13px;font-weight:620;margin-bottom:4px">Outcome</div>
+      <div style="color:var(--text-3);font-size:11.5px;margin-bottom:16px">What the funnel produced</div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div><div class="cc-k" style="color:var(--text-3);font-size:11px">Revenue generated</div><div style="font-size:28px;font-weight:700;letter-spacing:-.03em;color:var(--green)">${inr(tot.sal)}</div></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div><div class="cc-k" style="color:var(--text-3);font-size:11px">ROAS</div><div style="font-size:22px;font-weight:700">${xr(tot.roas)}</div></div>
+          <div><div class="cc-k" style="color:var(--text-3);font-size:11px">AOV</div><div style="font-size:22px;font-weight:700">${inr(tot.aov)}</div></div>
+          <div><div class="cc-k" style="color:var(--text-3);font-size:11px">Rev / Click</div><div style="font-size:22px;font-weight:700">${inr(tot.rpc)}</div></div>
+          <div><div class="cc-k" style="color:var(--text-3);font-size:11px">Cost / Order</div><div style="font-size:22px;font-weight:700">${inr(tot.cpp)}</div></div>
+        </div>
+        <div style="border-top:1px solid var(--border);padding-top:14px;color:var(--text-2);font-size:12.5px;line-height:1.55">
+          Of every <b>1,000</b> impressions, <b>${(tot.clk/tot.imp*1000).toFixed(1)}</b> clicked and
+          <b>${(tot.ord/tot.imp*1000).toFixed(2)}</b> ordered — each click worth <b>${inr(tot.rpc)}</b>.
+        </div>
+      </div>`;
+  }
+};
+
+/* ---------- COMPARE BARS ---------- */
+const Compare={
+  render(D){
+    const{camps}=D;
+    const spenders=camps.filter(c=>c.sp>0),sellers=camps.filter(c=>c.sal>0);
+    const sets=[
+      {t:'Top 10 · Sales',c:'var(--green)',rows:[...camps].sort((a,b)=>b.sal-a.sal).slice(0,10),v:c=>c.sal,f:inr},
+      {t:'Top 10 · ROAS',c:'var(--blue)',rows:[...spenders].sort((a,b)=>b.roas-a.roas).slice(0,10),v:c=>c.roas,f:v=>xr(v)},
+      {t:'Top 10 · Spend',c:'var(--brand)',rows:[...camps].sort((a,b)=>b.sp-a.sp).slice(0,10),v:c=>c.sp,f:inr},
+      {t:'Top 10 · Orders',c:'var(--blue)',rows:[...camps].sort((a,b)=>b.ord-a.ord).slice(0,10),v:c=>c.ord,f:nf},
+      {t:'Lowest ROAS (spend > median)',c:'var(--red)',rows:[...spenders].filter(c=>c.sp>=D.bm.spendMed).sort((a,b)=>a.roas-b.roas).slice(0,10),v:c=>c.roas,f:v=>xr(v)},
+      {t:'Highest ACOS (selling)',c:'var(--amber)',rows:[...sellers].sort((a,b)=>b.acos-a.acos).slice(0,10),v:c=>c.acos,f:v=>pct(v)},
+    ];
+    $('#compare').innerHTML=sets.map(s=>{
+      const mx=Math.max(...s.rows.map(r=>Math.abs(s.v(r))),1);
+      return `<div class="panel"><div style="display:flex;justify-content:space-between;align-items:center">
+        <div style="font-size:13px;font-weight:620">${s.t}</div>
+        <span class="chip neu">${s.rows.length}</span></div>
+        <div class="bars">${s.rows.map(r=>`
+          <div class="bar-row" data-id="${r.id}">
+            <div class="bl"><span class="bn">${esc(r.n)}</span><span class="bv" style="color:${s.c}">${s.f(s.v(r))}</span></div>
+            <div class="bar-track"><i style="width:${Math.abs(s.v(r))/mx*100}%;background:${s.c}"></i></div>
+          </div>`).join('')}</div></div>`;
+    }).join('');
+    $$('#compare .bar-row').forEach(row=>{const c=camps.find(x=>x.id===row.dataset.id);if(!c)return;
+      row.style.cursor='pointer';row.onmouseenter=e=>CampCard.show(e,c);row.onmousemove=e=>CampCard.move(e);row.onmouseleave=()=>CampCard.hide();});
+  }
+};
+
+/* ---------- INSIGHT ENGINE (≥25, live) ---------- */
+const Insights={
+  generate(D){
+    const{camps,tot,bm}=D;const I=[];const N=n=>n.length>40?n.slice(0,40)+'…':n;
+    const bySales=[...camps].sort((a,b)=>b.sal-a.sal);
+    const bySpend=[...camps].sort((a,b)=>b.sp-a.sp);
+    const add=(sev,cat,title,problem,evidence,impact,action)=>I.push({sev,cat,title,problem,evidence,impact,action});
+    // 1 concentration
+    if(bySales[0]){const c=bySales[0];add('positive','performance','Sales are highly concentrated in a few winners',
+      `The single biggest campaign drives a disproportionate share of revenue.`,
+      `${N(c.n)} = ${inr(c.sal)} (${pct(c.sal/tot.sal*100)} of sales) on ${pct(c.sp/tot.sp*100)} of spend.`,
+      `Revenue depends on a thin set of campaigns — concentration risk if any falter.`,
+      `Protect & scale the top 5; build 2–3 backup winners to de-risk.`);}
+    // 2 efficiency hero (high sales%, low spend%)
+    const effHero=[...camps].filter(c=>c.sal>tot.sal*0.02).sort((a,b)=>(b.sal/b.sp)-(a.sal/a.sp))[0];
+    if(effHero){add('positive','performance','A standout efficiency engine is carrying the event',
+      `One campaign converts spend to sales far above the portfolio rate.`,
+      `${N(effHero.n)}: ${pct(effHero.sal/tot.sal*100)} of sales from just ${pct(effHero.sp/tot.sp*100)} of spend at ${xr(effHero.roas)} ROAS.`,
+      `This is your most capital-efficient lever for incremental revenue.`,
+      `Raise its budget first — it has the best marginal return.`);}
+    // 3 wasted spend
+    const waste=camps.filter(c=>c.sp>0&&c.sal===0).sort((a,b)=>b.sp-a.sp);const wasteSp=waste.reduce((s,c)=>s+c.sp,0);
+    if(waste.length)add('critical','budget','Budget is leaking on zero-return campaigns',
+      `${waste.length} campaigns spent money but produced no attributed sales.`,
+      `${inr(wasteSp)} spent (${pct(wasteSp/tot.sp*100)} of budget) · 0 sales · worst: ${N(waste[0].n)} at ${inr(waste[0].sp)}.`,
+      `Pure waste — this budget could fund proven winners.`,
+      `Pause the top zero-sale spenders now; investigate targeting/keywords before relaunch.`);
+    // 4 highest spend low roas
+    const hsLr=bySpend.filter(c=>c.roas!=null&&c.roas<1.5).slice(0,1)[0];
+    if(hsLr){add('warning','budget','A high-spend campaign is under-performing',
+      `Significant budget is flowing to a below-average-ROAS campaign.`,
+      `${N(hsLr.n)}: ${inr(hsLr.sp)} spend (${pct(hsLr.sp/tot.sp*100)}) → only ${inr(hsLr.sal)} (${pct(hsLr.sal/tot.sal*100)}) at ${xr(hsLr.roas)} ROAS.`,
+      `Every rupee here returns less than the portfolio average — a drag on blended ROAS.`,
+      `Cut budget 30–50%, tighten targeting, and redeploy to top-quartile campaigns.`);}
+    // 5 worst ACOS
+    const wAcos=camps.filter(c=>c.sal>0).sort((a,b)=>b.acos-a.acos)[0];
+    if(wAcos)add('critical','performance','Highest-ACOS campaign is selling at a loss',
+      `A campaign's ad cost exceeds the revenue it generates.`,
+      `${N(wAcos.n)}: ACOS ${pct(wAcos.acos)} (spend ${inr(wAcos.sp)} vs sales ${inr(wAcos.sal)}).`,
+      `Unprofitable at the ad level — erodes contribution margin.`,
+      `Review keywords/bids immediately; pause if it can't reach < 60% ACOS.`);
+    // 6 best ROAS hidden gem underfunded
+    const gem=camps.filter(c=>c.sp>0&&c.roas>=3*tot.roas&&c.sp<bm.spendMed).sort((a,b)=>b.roas-a.roas)[0];
+    if(gem)add('positive','opportunity','A high-ROAS campaign is starved of budget',
+      `An exceptional performer is running on a tiny budget.`,
+      `${N(gem.n)}: ${xr(gem.roas)} ROAS but only ${inr(gem.sp)} spend (${pct(gem.util||0,1)} budget used).`,
+      `Massive untapped upside — scaling could add high-margin revenue.`,
+      `Increase budget/bids 2–3× and monitor ROAS as volume grows.`);
+    // 7 budget-capped winners
+    const capped=camps.filter(c=>c.util>=95&&c.roas>=tot.roas).sort((a,b)=>b.sal-a.sal);
+    if(capped.length)add('warning','budget','Winning campaigns are hitting their budget ceiling',
+      `${capped.length} above-average-ROAS campaigns are capped at ~100% budget.`,
+      `e.g. ${N(capped[0].n)}: ${pct(capped[0].util,0)} utilization at ${xr(capped[0].roas)} ROAS.`,
+      `Budget caps throttle proven winners — you're losing recoverable sales.`,
+      `Raise daily budgets on capped, profitable campaigns before the next peak.`);
+    // 8 high CTR low purchase
+    const ctrLp=camps.filter(c=>c.ctr!=null&&c.ctr>=bm.ctr*1.5&&c.clk>=10&&c.cvr!=null&&c.cvr<bm.cvr*0.6).sort((a,b)=>b.clk-a.clk)[0];
+    if(ctrLp)add('warning','opportunity','High interest, weak conversion — a landing/offer gap',
+      `A campaign attracts strong clicks but few of them convert.`,
+      `${N(ctrLp.n)}: CTR ${pct(ctrLp.ctr,2)} (${nf(ctrLp.clk)} clicks) but CVR only ${pct(ctrLp.cvr)}.`,
+      `Demand exists but is lost after the click — wasted click spend.`,
+      `Fix product page: price, images, reviews, availability; check keyword intent.`);
+    // 9 high clicks zero sales
+    const hcZs=camps.filter(c=>c.sal===0&&c.clk>=15).sort((a,b)=>b.clk-a.clk)[0];
+    if(hcZs)add('critical','opportunity','Clicks without conversions signal a targeting mismatch',
+      `A campaign draws many clicks yet converts none of them.`,
+      `${N(hcZs.n)}: ${nf(hcZs.clk)} clicks, ${inr(hcZs.sp)} spent, 0 orders.`,
+      `Paying for irrelevant traffic that never buys.`,
+      `Add negative keywords, review match types, verify the right ASIN is promoted.`);
+    // 10 high impressions low ctr
+    const hiLc=camps.filter(c=>c.imp>=bm.p75sal>0?c.imp>=15000:c.imp>=15000).filter(c=>c.ctr!=null&&c.ctr<bm.ctr*0.5).sort((a,b)=>b.imp-a.imp)[0];
+    if(hiLc)add('info','opportunity','Big reach, low engagement — creative not landing',
+      `A campaign gets heavy impressions but a weak click rate.`,
+      `${N(hiLc.n)}: ${nf(hiLc.imp)} impressions but CTR only ${pct(hiLc.ctr,2)} (portfolio ${pct(bm.ctr,2)}).`,
+      `Reach isn't converting to traffic — impression spend under-worked.`,
+      `Refresh creative/headline & bid on tighter, higher-intent placements.`);
+    // 11 highest CPC low roas
+    const hcpc=camps.filter(c=>c.cpc!=null&&c.roas!=null).sort((a,b)=>b.cpc-a.cpc)[0];
+    if(hcpc&&hcpc.roas<tot.roas)add('warning','budget','Paying premium clicks for below-average returns',
+      `The highest-CPC campaign isn't returning enough to justify the click price.`,
+      `${N(hcpc.n)}: CPC ${inr(hcpc.cpc)} at ${xr(hcpc.roas)} ROAS (portfolio ${xr(tot.roas)}).`,
+      `Expensive traffic compresses margin.`,
+      `Lower bids toward portfolio CPC (${inr(tot.cpc)}) and reassess ROAS.`);
+    // 12 portfolio ACOS vs target
+    add(tot.acos<=35?'positive':'warning','performance',`Blended ACOS is ${tot.acos<=35?'within':'above'} the healthy band`,
+      `Overall advertising cost of sale across all campaigns.`,
+      `ACOS ${pct(tot.acos)} · ROAS ${xr(tot.roas)} on ${inr(tot.sp)} spend → ${inr(tot.sal)} sales.`,
+      tot.acos<=35?`Ad spend is efficient at the portfolio level.`:`Blended efficiency is under pressure from a costly tail.`,
+      tot.acos<=35?`Hold strategy; reinvest savings into scaling winners.`:`Trim the worst-ACOS decile to pull blended ACOS down.`);
+    // 13 TACOS context
+    add('info','performance','Ads drive the majority of total store sales',
+      `Relationship between ad-attributed sales and total store revenue.`,
+      `Ad sales ${inr(tot.sal)} = ${pct(tot.sal/STORE.total_sales*100)} of store sales (${inr(STORE.total_sales)}). TACOS ${pct(tot.sp/STORE.total_sales*100)}.`,
+      `High ad-dependency: organic demand is comparatively thin.`,
+      `Invest in organic rank & reviews so ads amplify rather than carry sales.`);
+    // 14 peak day
+    const dl=daily(filteredRows());const peak=[...dl].sort((a,b)=>b.sal-a.sal)[0];const low=[...dl].sort((a,b)=>a.sal-b.sal)[0];
+    if(peak&&low&&dl.length>1)add('info','performance','Trading peaked sharply on one day',
+      `Sales were unevenly distributed across the event window.`,
+      `Peak ${fmtDate(peak.d)} ${inr(peak.sal)} vs low ${fmtDate(low.d)} ${inr(low.sal)} — a ${pct((peak.sal/low.sal-1)*100)} swing.`,
+      `Budget pacing should match demand curve to avoid mid-event stockouts of impressions.`,
+      `Front-load budgets on high-demand days; dayparting on peak hours.`);
+    // 15 YoY (store)
+    if(STORE.ly_sales)add(STORE.total_sales>=STORE.ly_sales?'positive':'warning','performance',`Store sales are ${STORE.total_sales>=STORE.ly_sales?'up':'down'} vs last year`,
+      `Year-over-year comparison of total ordered product sales.`,
+      `${inr(STORE.total_sales)} this year vs ${inr(STORE.ly_sales)} LY (${pct((STORE.total_sales/STORE.ly_sales-1)*100)}).`,
+      `Demonstrates overall Prime Day growth trajectory.`,
+      `Attribute growth to scaled campaigns; document what worked for next event.`);
+    // 16 low budget utilization
+    if(tot.util<50)add('warning','budget','Most of the budget went unspent',
+      `Portfolio spent only a fraction of allotted daily budgets.`,
+      `Utilization ${pct(tot.util)} — ${inr(tot.bud-tot.sp)} of budget capacity unused.`,
+      `Under-spending on a peak event = missed sales, especially on winners.`,
+      `Shift unused budget to top-ROAS campaigns; raise bids to capture more impressions.`);
+    // 17 AOV outlier
+    const hiAov=camps.filter(c=>c.ord>=3).sort((a,b)=>b.aov-a.aov)[0];
+    if(hiAov)add('info','performance','A campaign is pulling unusually high basket values',
+      `One campaign's average order value far exceeds the norm.`,
+      `${N(hiAov.n)}: AOV ${inr(hiAov.aov)} vs portfolio ${inr(tot.aov)} across ${nf(hiAov.ord)} orders.`,
+      `High-value buyers — worth more lifetime revenue.`,
+      `Increase investment and test bundles/upsells on this audience.`);
+    // 18 best conversion
+    const bestCvr=camps.filter(c=>c.clk>=10).sort((a,b)=>b.cvr-a.cvr)[0];
+    if(bestCvr)add('positive','performance','A campaign converts clicks exceptionally well',
+      `Highest click-to-order conversion among campaigns with real traffic.`,
+      `${N(bestCvr.n)}: CVR ${pct(bestCvr.cvr)} (portfolio ${pct(tot.cvr)}) on ${nf(bestCvr.clk)} clicks.`,
+      `Its offer/page turns interest into orders efficiently.`,
+      `Replicate its keywords/creative across similar products.`);
+    // 19 units depth
+    add('info','performance','Shoppers are buying close to one unit per order',
+      `Basket depth across all attributed orders.`,
+      `${nf(tot.u)} units / ${nf(tot.ord)} orders = ${(tot.u/tot.ord).toFixed(2)} units/order · AOV ${inr(tot.aov)}.`,
+      `Limited cross-sell — revenue relies on order count, not basket size.`,
+      `Introduce multi-packs/bundles to lift units per order.`);
+    // 20 portfolio leaders (by portfolio group)
+    const pf=new Map();camps.forEach(c=>{let p=pf.get(c.pf)||{sp:0,sal:0,n:0};p.sp+=c.sp;p.sal+=c.sal;p.n++;pf.set(c.pf,p);});
+    const pfArr=[...pf.entries()].map(([k,v])=>({k,...v,roas:sdiv(v.sal,v.sp)})).filter(p=>p.sp>0).sort((a,b)=>b.roas-a.roas);
+    if(pfArr.length>1)add('info','performance','Portfolio-level efficiency varies widely',
+      `ROAS differs materially across portfolios/ad groups.`,
+      `Best: ${esc(pfArr[0].k)} ${xr(pfArr[0].roas)} vs weakest: ${esc(pfArr[pfArr.length-1].k)} ${xr(pfArr[pfArr.length-1].roas)}.`,
+      `Budget mix across portfolios is not optimized for return.`,
+      `Rebalance spend toward the highest-ROAS portfolios.`);
+    // 21 paused winners
+    const pausedWin=camps.filter(c=>c.st==='PAUSED'&&c.roas!=null&&c.roas>=tot.roas&&c.sal>0).sort((a,b)=>b.roas-a.roas)[0];
+    if(pausedWin)add('warning','opportunity','A profitable campaign is currently paused',
+      `A campaign with above-average ROAS is not running.`,
+      `${N(pausedWin.n)}: ${xr(pausedWin.roas)} ROAS, ${inr(pausedWin.sal)} sales — status PAUSED.`,
+      `Foregoing profitable, proven revenue.`,
+      `Re-enable and fund it if inventory allows.`);
+    // 22 spend concentration
+    const top10sp=bySpend.slice(0,10).reduce((s,c)=>s+c.sp,0);
+    add('info','budget','Spend is concentrated in the top campaigns',
+      `A small number of campaigns absorb most of the budget.`,
+      `Top 10 campaigns = ${pct(top10sp/tot.sp*100)} of total spend (${inr(top10sp)}).`,
+      `Concentration is fine if those are efficient — risky if not.`,
+      `Verify each top-spender clears target ROAS; trim any that don't.`);
+    // 23 lowest cpc value
+    const loCpc=camps.filter(c=>c.cpc!=null&&c.clk>=8).sort((a,b)=>a.cpc-b.cpc)[0];
+    if(loCpc)add('positive','opportunity','Cheap, efficient traffic available to scale',
+      `A campaign acquires clicks well below the portfolio CPC.`,
+      `${N(loCpc.n)}: CPC ${inr(loCpc.cpc)} vs portfolio ${inr(tot.cpc)}${loCpc.roas?` at ${xr(loCpc.roas)} ROAS`:''}.`,
+      `Low-cost traffic source — efficient to expand.`,
+      `Increase bids modestly to capture more of this cheap volume.`);
+    // 24 negative-contribution tail
+    const negC=camps.filter(c=>c.contrib<0);const negSum=negC.reduce((s,c)=>s+c.contrib,0);
+    if(negC.length)add('warning','budget','A loss-making tail is dragging net contribution',
+      `${negC.length} campaigns cost more than they earned.`,
+      `Combined net loss ${inr(Math.abs(negSum))} across ${negC.length} campaigns (spend > sales).`,
+      `Directly reduces portfolio profitability.`,
+      `Pause or fix the tail to recover ~${inr(Math.abs(negSum))} in contribution.`);
+    // 25 overall verdict
+    add(tot.roas>=2.5?'positive':'warning','performance',`Overall: Prime Day was ${tot.roas>=3?'a strong success':tot.roas>=2?'solid but improvable':'below expectations'}`,
+      `Executive bottom line for the event.`,
+      `${inr(tot.sal)} sales · ${inr(tot.sp)} spend · ${xr(tot.roas)} ROAS · ${nf(tot.ord)} orders · ${pct(tot.acos)} ACOS.`,
+      `Sets the baseline and budget case for the next event.`,
+      `Double down on top-decile ROAS, pause the zero-sale tail, lift caps on winners.`);
+    // extra per-campaign criticals to guarantee depth
+    camps.filter(c=>c.sal>0&&c.acos>90).sort((a,b)=>b.sp-a.sp).slice(1,4).forEach(c=>{
+      add('critical','performance','Loss-making campaign flagged for review',
+        `This campaign spends more than it returns.`,
+        `${N(c.n)}: ${inr(c.sp)} spend → ${inr(c.sal)} sales · ACOS ${pct(c.acos)} · ROAS ${xr(c.roas)}.`,
+        `Negative contribution of ${inr(c.sp-c.sal)}.`,
+        `Cut bids hard or pause; re-test with tighter keywords.`);});
+    return I;
+  },
+  renderFilter(){
+    const cats=['all','performance','budget','opportunity'];const lbl={all:'All',performance:'Performance',budget:'Budget',opportunity:'Opportunity'};
+    $('#insFilter').innerHTML=cats.map(c=>`<button class="${c===State.insFilter?'on':''}" onclick="Insights.setFilter('${c}')">${lbl[c]} ${c==='all'?`· ${this.data.length}`:''}</button>`).join('');
+  },
+  setFilter(c){State.insFilter=c;$$('#insFilter button').forEach((b,i)=>b.classList.toggle('on',['all','performance','budget','opportunity'][i]===c));this.render();},
+  render(){
+    const list=State.insFilter==='all'?this.data:this.data.filter(i=>i.cat===State.insFilter);
+    const order={critical:0,warning:1,positive:2,info:3};
+    list.sort((a,b)=>order[a.sev]-order[b.sev]);
+    $('#insTitle').textContent=`${this.data.length} auto-generated observations`;
+    $('#insights').innerHTML=list.map(i=>`
+      <div class="insight ${i.sev}">
+        <div class="ih"><span class="sev ${i.sev}">${i.sev}</span><h4>${i.title}</h4></div>
+        <div class="row"><span class="tag">Problem</span><span class="tx">${i.problem}</span></div>
+        <div class="row"><span class="tag">Evidence</span><span class="tx ev">${i.evidence}</span></div>
+        <div class="row"><span class="tag">Impact</span><span class="tx">${i.impact}</span></div>
+        <div class="row act"><span class="tag">Action</span><span class="tx">${i.action}</span></div>
+      </div>`).join('');
+  }
+};
+
+/* ---------- OPPORTUNITY CENTER ---------- */
+const Opp={
+  render(D){
+    const{camps,tot,bm}=D;
+    const scale=camps.filter(c=>c.roas!=null&&c.roas>=1.5*tot.roas&&c.util!=null&&c.util<85&&c.sal>0).sort((a,b)=>b.roas-a.roas).slice(0,6);
+    const increase=camps.filter(c=>c.util>=90&&c.roas>=tot.roas).sort((a,b)=>b.roas-a.roas).slice(0,6);
+    const decrease=camps.filter(c=>c.sp>bm.spendMed&&c.roas!=null&&c.roas<1).sort((a,b)=>b.sp-a.sp).slice(0,6);
+    const pause=camps.filter(c=>c.sp>0&&c.sal===0).sort((a,b)=>b.sp-a.sp).slice(0,6);
+    const investigate=camps.filter(c=>c.clk>=10&&c.cvr!=null&&c.cvr<bm.cvr*0.5&&c.sal>0).sort((a,b)=>b.clk-a.clk).slice(0,6);
+    const cols=[
+      {i:'🚀',c:'green',t:'Scale Up',d:'High ROAS with budget headroom',items:scale,val:c=>[xr(c.roas),`${pct(c.util,0)} used`]},
+      {i:'⬆',c:'blue',t:'Increase Budget',d:'Capped winners losing impressions',items:increase,val:c=>[`${pct(c.util,0)}`,`${xr(c.roas)} ROAS`]},
+      {i:'⬇',c:'amber',t:'Decrease Budget',d:'High spend, sub-1× ROAS',items:decrease,val:c=>[inr(c.sp),`${xr(c.roas)} ROAS`]},
+      {i:'⏸',c:'red',t:'Pause',d:'Spending with zero sales',items:pause,val:c=>[inr(c.sp),'0 sales']},
+      {i:'🔎',c:'blue',t:'Investigate',d:'Traffic but weak conversion',items:investigate,val:c=>[`${pct(c.cvr)}`,`${nf(c.clk)} clk`]},
+    ];
+    $('#opps').innerHTML=cols.map(col=>`
+      <div class="opp-col">
+        <div class="oh"><div class="oi" style="background:var(--${col.c}-soft);color:var(--${col.c})">${col.i}</div>
+          <h4>${col.t}</h4><span class="cnt">${col.items.length}</span></div>
+        <div class="odesc">${col.d}</div>
+        ${col.items.length?col.items.map(c=>{const[a,b]=col.val(c);return`
+          <div class="opp-item" data-id="${c.id}" style="cursor:pointer">
+            <div style="min-width:0"><div class="oname">${esc(c.n)}</div><div class="ometa">${esc(c.pf)}</div></div>
+            <div class="oval"><b style="color:var(--${col.c})">${a}</b><span>${b}</span></div>
+          </div>`;}).join(''):`<div class="opp-item" style="color:var(--text-3);border-top:1px solid var(--border)">None in current selection</div>`}
+      </div>`).join('');
+    $$('#opps .opp-item[data-id]').forEach(it=>{const c=camps.find(x=>x.id===it.dataset.id);if(!c)return;
+      it.onmouseenter=e=>CampCard.show(e,c);it.onmousemove=e=>CampCard.move(e);it.onmouseleave=()=>CampCard.hide();});
+  }
+};
+
+/* ---------- FILTERS DRAWER ---------- */
+const Filters={
+  open(){$('#drawer').classList.add('on');$('#drawerBg').classList.add('on');},
+  close(){$('#drawer').classList.remove('on');$('#drawerBg').classList.remove('on');},
+  wireRanges(){
+    const upd=()=>{$('#dRoasV').textContent='≥ '+xr(+$('#dRoas').value);
+      $('#dSpendV').textContent='≥ '+inr(+$('#dSpend').value);$('#dSalesV').textContent='≥ '+inr(+$('#dSales').value);};
+    ['dRoas','dSpend','dSales'].forEach(id=>$('#'+id).addEventListener('input',upd));upd();
+  },
+  apply(){const f=State.filters;
+    f.camp=$('#dCamp').value;f.pf=$('#dPortfolio').value;f.date=$('#dDate').value;f.status=$('#dStatus').value;
+    f.cat=$('#dCat').value;f.roas=+$('#dRoas').value;f.spend=+$('#dSpend').value;f.sales=+$('#dSales').value;
+    // mirror to inline controls
+    $('#fPortfolio').value=f.pf;$('#fCat').value=f.cat;
+    this.updateCount();App.renderAll();this.close();},
+  reset(){['dCamp','dPortfolio','dDate','dStatus','dCat'].forEach(id=>$('#'+id).value='');
+    $('#dRoas').value=0;$('#dSpend').value=0;$('#dSales').value=0;this.wireRanges();
+    State.filters={camp:'',pf:'',date:'',status:'',cat:'',roas:0,spend:0,sales:0};
+    $('#fPortfolio').value='';$('#fCat').value='';this.updateCount();App.renderAll();},
+  updateCount(){const f=State.filters;let n=0;['camp','pf','date','status','cat'].forEach(k=>{if(f[k])n++;});
+    if(f.roas)n++;if(f.spend)n++;if(f.sales)n++;
+    const el=$('#filtCount');el.style.display=n?'grid':'none';el.textContent=n;}
+};
+// keep inline portfolio/cat selects in sync with drawer
+$('#fPortfolio').addEventListener('change',e=>{State.filters.pf=e.target.value;$('#dPortfolio').value=e.target.value;Filters.updateCount();App.renderAll();});
+$('#fCat').addEventListener('change',e=>{State.filters.cat=e.target.value;$('#dCat').value=e.target.value;Filters.updateCount();App.renderAll();});
+
+/* ---------- EXPORT ---------- */
+const Exp={
+  pdf(){window.print();},
+  png(svg,name){if(!svg)return;const s=new XMLSerializer().serializeToString(svg);
+    const css=getComputedStyle(document.documentElement);
+    const bg=css.getPropertyValue('--card')||'#fff';
+    const img=new Image();const svg64=btoa(unescape(encodeURIComponent(
+      s.replace(/var\(--text-3\)/g,css.getPropertyValue('--text-3')).replace(/var\(--border\)/g,css.getPropertyValue('--border'))
+       .replace(/var\(--text-2\)/g,css.getPropertyValue('--text-2')).replace(/var\(--card\)/g,bg))));
+    img.onload=()=>{const sc=2,c=document.createElement('canvas');c.width=svg.viewBox.baseVal.width*sc;c.height=svg.viewBox.baseVal.height*sc;
+      const ctx=c.getContext('2d');ctx.fillStyle=bg;ctx.fillRect(0,0,c.width,c.height);ctx.scale(sc,sc);ctx.drawImage(img,0,0);
+      c.toBlob(b=>dl(b,name+'.png'));};
+    img.src='data:image/svg+xml;base64,'+svg64;},
+  excel(){const D=filteredCamps();const cols=['Campaign','Portfolio','Status','Days','Health','Spend','Sales','ROAS','ACOS','Orders','Units','CTR%','Conv%','CPC','AOV','BudgetUtil%','Contribution'];
+    const rows=[...D.camps].sort((a,b)=>b.sal-a.sal).map(c=>[c.n,c.pf,c.st,c.nd,c.h.score,c.sp.toFixed(2),c.sal.toFixed(2),
+      c.roas==null?'':c.roas.toFixed(2),c.acos==null?'':c.acos.toFixed(1),c.ord,c.u,c.ctr==null?'':c.ctr.toFixed(2),
+      c.cvr==null?'':c.cvr.toFixed(1),c.cpc==null?'':c.cpc.toFixed(2),c.aov==null?'':c.aov.toFixed(0),c.util==null?'':c.util.toFixed(0),c.contrib.toFixed(0)]);
+    let html='<table border=1><tr>'+cols.map(h=>`<th>${h}</th>`).join('')+'</tr>'+
+      rows.map(r=>'<tr>'+r.map(v=>`<td>${String(v).replace(/</g,'&lt;')}</td>`).join('')+'</tr>').join('')+'</table>';
+    dl(new Blob([`<html xmlns:x="urn:schemas-microsoft-com:office:excel"><head><meta charset="utf-8"></head><body>${html}</body></html>`],
+      {type:'application/vnd.ms-excel'}),'PrimeDay2026_Campaigns.xls');}
+};
+function dl(blob,name){const u=URL.createObjectURL(blob);const a=document.createElement('a');a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1500);}
+
+/* ---------- INIT ---------- */
+window.addEventListener('DOMContentLoaded',()=>App.boot());
+</script>
+</body>
+</html>
