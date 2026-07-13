@@ -140,6 +140,21 @@ svg text{fill:var(--text-3);font-family:var(--font)}
 .frev .rl{font-size:10px;font-weight:640;text-transform:uppercase;letter-spacing:.06em;color:var(--text-3);margin-bottom:3px}
 .frev .rv{font-size:24px;font-weight:740;letter-spacing:-.03em}
 
+/* daily scorecard */
+.kpi.feat{background:linear-gradient(180deg,var(--brand-soft),transparent),var(--card);border-color:color-mix(in srgb,var(--brand) 26%,var(--border))}
+.lgd{display:inline-block;width:14px;height:9px;border-radius:3px;margin-right:5px;vertical-align:middle}
+.pd-badge{display:inline-block;font-size:8.5px;font-weight:700;letter-spacing:.05em;color:var(--brand-2);
+  background:var(--brand-soft);border:1px solid color-mix(in srgb,var(--brand) 32%,transparent);padding:1px 5px;border-radius:5px;margin-left:7px;vertical-align:middle}
+tr.pd td{background:color-mix(in srgb,var(--brand-soft) 45%,transparent)}
+tbody tr.pd:hover td{background:var(--brand-soft)}
+.orgbar{width:40px;height:6px;border-radius:3px;background:var(--card-2);border:1px solid var(--border);overflow:hidden;display:inline-block;vertical-align:middle;margin-right:8px}
+.orgbar i{display:block;height:100%;background:var(--green)}
+tfoot td{padding:12px 13px;text-align:right;color:var(--text)}
+tfoot td:first-child{text-align:left}
+.sc-note{margin-top:16px;padding:15px 18px;border-radius:12px;background:var(--card-2);border:1px solid var(--border);
+  color:var(--text-2);font-size:13px;line-height:1.6}
+.sc-note b{color:var(--text);font-weight:620}
+
 /* table */
 .tools{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
 .search{position:relative;flex:1;min-width:200px}
@@ -300,7 +315,8 @@ footer{padding:50px 0 40px;color:var(--text-3);font-size:12px;border-top:1px sol
       <div>Prime Day 2026<small>Executive Command Center</small></div>
     </div>
     <nav class="tnav" id="tnav">
-      <a href="#summary" class="active">Summary</a>
+      <a href="#scorecard" class="active">Scorecard</a>
+      <a href="#summary">Summary</a>
       <a href="#trend">Trends</a>
       <a href="#leaderboard">Leaderboard</a>
       <a href="#funnel">Funnel</a>
@@ -326,6 +342,18 @@ footer{padding:50px 0 40px;color:var(--text-3);font-size:12px;border-top:1px sol
     <h1>Prime Day performance, <span class="grad">read in five minutes.</span></h1>
     <div class="narrative" id="narrative"><div class="skel" style="height:90px"></div></div>
   </div>
+
+  <!-- ============ ★ DAILY BUSINESS SCORECARD (featured, first) ============ -->
+  <section id="scorecard" style="padding-top:30px">
+    <div class="sec-head">
+      <div><div class="k">★ Featured · Daily Business Scorecard</div><h2>The daily P&amp;L, at a glance</h2>
+      <p>Ad spend vs ad sales vs <b>total store sales</b> vs organic vs <b>TACOS</b>, day by day (Jun 30 – Jul 12). This is the whole-business view; the campaign deep-dive below zooms into Prime Day (Jul 4–6).</p></div>
+    </div>
+    <div class="grid kpi-grid stagger" id="scGrid" style="margin-bottom:14px"></div>
+    <div class="panel" id="scChart" style="margin-bottom:14px"><div class="skel" style="height:340px"></div></div>
+    <div class="tbl-scroll"><table id="scTable"></table></div>
+    <div class="sc-note" id="scNote"></div>
+  </section>
 
   <!-- smart alerts -->
   <section id="alertsSec" style="padding-top:30px">
@@ -566,6 +594,141 @@ function filteredCamps(){
 }
 
 /* =====================================================================
+   DAILY BUSINESS SCORECARD  (full period Jun 30 – Jul 12 2026)
+   Source: business summary — ad spend vs ad sales vs total (Seller Central)
+   vs organic vs TACOS. Raw inputs only; every rate computed live below.
+   ===================================================================== */
+const DAILY_RAW=[
+  {d:'2026-06-30',sp:10324,pur:61,ad:32091,total:68978},
+  {d:'2026-07-01',sp:10880,pur:50,ad:29664,total:60548},
+  {d:'2026-07-02',sp:12277,pur:72,ad:39265,total:69813},
+  {d:'2026-07-03',sp:12936,pur:59,ad:32634,total:71632},
+  {d:'2026-07-04',sp:22821,pur:128,ad:63326,total:102094},
+  {d:'2026-07-05',sp:23957,pur:82,ad:42700,total:87220},
+  {d:'2026-07-06',sp:20463,pur:120,ad:58990,total:133501},
+  {d:'2026-07-07',sp:11618,pur:57,ad:31940,total:58375},
+  {d:'2026-07-08',sp:11614,pur:58,ad:33739,total:68110},
+  {d:'2026-07-09',sp:14738,pur:82,ad:47838,total:76961},
+  {d:'2026-07-10',sp:14540,pur:54,ad:29714,total:65784},
+  {d:'2026-07-11',sp:15932,pur:54,ad:31261,total:59655},
+  {d:'2026-07-12',sp:14422,pur:61,ad:37500,total:69723},
+];
+const PRIME=['2026-07-04','2026-07-05','2026-07-06'];
+const DAILY=DAILY_RAW.map(r=>({...r,
+  org:r.total-r.ad, roas:sdiv(r.ad,r.sp), acos:sdiv(r.sp,r.ad)*100,
+  tacos:sdiv(r.sp,r.total)*100, orgpct:sdiv(r.total-r.ad,r.total)*100,
+  pd:PRIME.includes(r.d)}));
+
+function tacosPill(t){const c=t<=18?'green':t<=22?'amber':'red';
+  return `<span class="pill" style="background:var(--${c}-soft);color:var(--${c})">${pct(t,1)}</span>`;}
+
+const Scorecard={
+  totals(){const T=DAILY.reduce((a,r)=>{a.sp+=r.sp;a.pur+=r.pur;a.ad+=r.ad;a.total+=r.total;return a;},{sp:0,pur:0,ad:0,total:0});
+    T.org=T.total-T.ad;T.roas=T.ad/T.sp;T.acos=T.sp/T.ad*100;T.tacos=T.sp/T.total*100;T.orgpct=T.org/T.total*100;
+    T.pd=DAILY.filter(r=>r.pd).reduce((a,r)=>({total:a.total+r.total,ad:a.ad+r.ad,sp:a.sp+r.sp}),{total:0,ad:0,sp:0});
+    return T;},
+  render(){
+    const T=this.totals();
+    const cards=[
+      {l:'Total Ad Spend',v:inrK(T.sp),s:`${DAILY.length} days`,a:'var(--brand)',m:'spend'},
+      {l:'Ad Sales (Campaign Mgr)',v:inrK(T.ad),s:`${nf(T.pur)} purchases`,a:'var(--blue)',m:'sales'},
+      {l:'Total Sales (Seller Central)',v:inrK(T.total),s:'ad + organic',a:'var(--green)'},
+      {l:'Organic Sales',v:inrK(T.org),s:`${pct(T.orgpct)} of total`,a:'var(--green)'},
+      {l:'Blended ROAS',v:xr(T.roas),s:'ad sales ÷ spend',a:T.roas>=2.5?'var(--green)':'var(--amber)',m:'roas'},
+      {l:'Ad ACOS',v:pct(T.acos),s:'spend ÷ ad sales',a:'var(--amber)',m:'acos'},
+      {l:'TACOS',v:pct(T.tacos),s:'spend ÷ total sales',a:T.tacos<=20?'var(--green)':'var(--amber)',m:'tacos'},
+      {l:'Organic Share',v:pct(T.orgpct),s:'organic ÷ total',a:'var(--blue)'},
+    ];
+    $('#scGrid').innerHTML=cards.map(c=>`
+      <div class="kpi feat"><div class="accent" style="background:${c.a}"></div>
+        <div class="top"><div class="lbl">${c.l}${c.m?`<span class="q" data-metric="${c.m}">?</span>`:''}</div></div>
+        <div class="val num">${c.v}</div><div class="sub">${c.s}</div></div>`).join('');
+    $$('#scGrid .q[data-metric]').forEach(q=>{q.onmouseenter=e=>MetricTip.show(e,q.dataset.metric);q.onmouseleave=()=>MetricTip.hide();});
+
+    // combo chart
+    $('#scChart').innerHTML=`
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px">
+        <div><div style="font-size:13px;font-weight:620">Daily sales composition &amp; TACOS</div>
+        <div style="color:var(--text-3);font-size:11.5px">Bars = total sales split into ad vs organic · line = TACOS · shaded = Prime Day</div></div>
+        <div style="display:flex;gap:14px;align-items:center;font-size:11.5px;color:var(--text-2)">
+          <span><span class="lgd" style="background:linear-gradient(#8b5cf6,#635bff)"></span>Ad sales</span>
+          <span><span class="lgd" style="background:linear-gradient(#34e39b,#2fd07f)"></span>Organic</span>
+          <span><span class="lgd" style="background:var(--amber);height:3px;border-radius:2px"></span>TACOS %</span>
+          <button class="btn" onclick="Exp.png($('#scSvg'),'daily-scorecard')">⤓ PNG</button>
+        </div>
+      </div>${this.drawChart()}`;
+    this.wireChart();
+
+    // daywise table
+    const row=r=>`<tr class="${r.pd?'pd':''}">
+      <td style="text-align:left">${fmtDate(r.d)}${r.pd?'<span class="pd-badge">PRIME</span>':''}</td>
+      <td>${inr(r.sp)}</td><td>${nf(r.pur)}</td><td>${inr(r.ad)}</td>
+      <td>${pillAcos(r.acos)}</td><td>${pillRoas(r.roas)}</td>
+      <td><b>${inr(r.total)}</b></td><td>${inr(r.org)}</td>
+      <td><span class="orgbar"><i style="width:${r.orgpct}%"></i></span>${pct(r.orgpct)}</td>
+      <td>${tacosPill(r.tacos)}</td></tr>`;
+    $('#scTable').innerHTML=`
+      <thead><tr>
+        <th style="text-align:left">Date</th><th>Spend</th><th>Purch.</th><th>Ad Sales</th>
+        <th>ACOS</th><th>ROAS</th><th>Total Sales</th><th>Organic</th><th>Organic %</th><th>TACOS</th>
+      </tr></thead>
+      <tbody>${DAILY.map(row).join('')}</tbody>
+      <tfoot><tr style="font-weight:700;border-top:2px solid var(--border-2)">
+        <td style="text-align:left">Period total</td><td>${inr(T.sp)}</td><td>${nf(T.pur)}</td><td>${inr(T.ad)}</td>
+        <td>${pct(T.acos,0)}</td><td>${xr(T.roas)}</td><td>${inr(T.total)}</td><td>${inr(T.org)}</td>
+        <td>${pct(T.orgpct)}</td><td>${pct(T.tacos,1)}</td></tr></tfoot>`;
+
+    // narrative line under the scorecard
+    const best=[...DAILY].sort((a,b)=>b.total-a.total)[0];
+    const worstTacos=[...DAILY].sort((a,b)=>b.tacos-a.tacos)[0];
+    $('#scNote').innerHTML=`Across <b>${DAILY.length} days</b>, ads spent <b>${inr(T.sp)}</b> to drive <b>${inr(T.ad)}</b> in ad sales,
+      while total store sales reached <b>${inr(T.total)}</b> — <b>${pct(T.orgpct)}</b> of it organic — at a blended
+      <b>${pct(T.tacos)} TACOS</b>. Prime Day (Jul 4–6) alone delivered <b>${inr(T.pd.total)}</b>
+      (<b>${pct(T.pd.total/T.total*100)}</b> of the period). Peak day was <b>${fmtDate(best.d)}</b> at <b>${inr(best.total)}</b>;
+      efficiency was weakest on <b>${fmtDate(worstTacos.d)}</b> (TACOS ${pct(worstTacos.tacos)}).`;
+  },
+  drawChart(){
+    const d=DAILY,W=980,H=360,pl=64,pr=54,pt=26,pb=54;
+    const iw=W-pl-pr,ih=H-pt-pb,step=iw/d.length,bw=Math.min(38,step*0.5);
+    const maxS=Math.max(...d.map(r=>r.total))*1.14, maxT=Math.max(...d.map(r=>r.tacos))*1.3;
+    const cx=i=>pl+step*i+step/2, Ys=v=>pt+ih-v/maxS*ih, Yt=v=>pt+ih-v/maxT*ih;
+    let grid='',yl='',yr='';
+    for(let g=0;g<=4;g++){const v=maxS*g/4,y=Ys(v),tv=maxT*g/4;
+      grid+=`<line class="grid-line" x1="${pl}" y1="${y}" x2="${W-pr}" y2="${y}"/>`;
+      yl+=`<text x="${pl-9}" y="${y+4}" text-anchor="end" font-size="11">${inrK(v)}</text>`;
+      yr+=`<text x="${W-pr+9}" y="${y+4}" text-anchor="start" font-size="11" fill="var(--amber)">${tv.toFixed(0)}%</text>`;}
+    let pd='',bars='';
+    d.forEach((r,i)=>{ if(r.pd)pd+=`<rect x="${cx(i)-step/2}" y="${pt}" width="${step}" height="${ih}" fill="var(--brand-soft)" opacity=".55"/>`;
+      const x=cx(i)-bw/2, yAd=Ys(r.ad), y0=Ys(0), yTot=Ys(r.total);
+      bars+=`<rect x="${x}" y="${yAd}" width="${bw}" height="${Math.max(0,y0-yAd)}" fill="url(#adg)" class="scbar" data-i="${i}"/>`;
+      bars+=`<rect x="${x}" y="${yTot}" width="${bw}" height="${Math.max(0,yAd-yTot)}" fill="url(#orgg)" rx="2" class="scbar" data-i="${i}"/>`;});
+    const line=d.map((r,i)=>(i?'L':'M')+cx(i).toFixed(1)+' '+Yt(r.tacos).toFixed(1)).join(' ');
+    let dots='',xl='';
+    d.forEach((r,i)=>{dots+=`<circle cx="${cx(i)}" cy="${Yt(r.tacos)}" r="3.6" fill="var(--amber)" stroke="var(--card)" stroke-width="2" class="scdot" data-i="${i}"/>`;
+      xl+=`<text x="${cx(i)}" y="${H-32}" text-anchor="middle" font-size="10.5" font-weight="${r.pd?'700':'500'}" fill="${r.pd?'var(--brand-2)':'var(--text-3)'}">${fmtDate(r.d)}</text>`;});
+    return `<svg id="scSvg" viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block">
+      <defs><linearGradient id="adg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8b5cf6"/><stop offset="1" stop-color="#635bff"/></linearGradient>
+      <linearGradient id="orgg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#34e39b"/><stop offset="1" stop-color="#2fd07f"/></linearGradient></defs>
+      ${pd}${grid}${yl}${yr}${bars}
+      <path d="${line}" fill="none" stroke="var(--amber)" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+      ${dots}${xl}</svg>`;
+  },
+  wireChart(){
+    const tip=i=>{const r=DAILY[i];return `<div class="t-d">${fmtDate(r.d)}${r.pd?' · PRIME DAY':''}</div>
+      <div class="t-r"><span>Total sales</span><b>${inr(r.total)}</b></div>
+      <div class="t-r"><span>Ad sales</span><b>${inr(r.ad)}</b></div>
+      <div class="t-r"><span>Organic</span><b>${inr(r.org)} (${pct(r.orgpct)})</b></div>
+      <div class="t-r"><span>Spend</span><b>${inr(r.sp)}</b></div>
+      <div class="t-r"><span>ROAS · ACOS</span><b>${xr(r.roas)} · ${pct(r.acos)}</b></div>
+      <div class="t-r"><span>TACOS</span><b>${pct(r.tacos)}</b></div>`;};
+    $$('#scChart .scbar, #scChart .scdot').forEach(el=>{
+      el.style.cursor='pointer';
+      el.onmouseenter=e=>ChartTip.show(e,tip(+el.dataset.i));
+      el.onmouseleave=()=>ChartTip.hide();});
+  }
+};
+
+/* =====================================================================
    RENDER
    ===================================================================== */
 const App={
@@ -578,7 +741,7 @@ const App={
     $('#rangeCamps').textContent=new Set(RAW.map(r=>r.id)).size;
     $('#footRows').textContent=RAW.length;
     Filters.wireRanges();
-    setTimeout(()=>this.renderAll(),450); // skeleton beat
+    setTimeout(()=>{Scorecard.render();this.renderAll();},450); // skeleton beat
     this.scrollSpy();
   },
   renderAll(){
@@ -668,6 +831,7 @@ const METRICS={
   ctr:{n:'CTR',f:'Clicks ÷ Impressions × 100',w:'Click-through rate — creative & relevance signal.',i:'How compelling the ad is to shoppers who see it.',b:'SP ~0.3–0.5% typical; higher is better.'},
   cvr:{n:'Conversion Rate',f:'Orders ÷ Clicks × 100',w:'Share of clicks that became orders.',i:'Landing-page & offer strength after the click.',b:'8–15% healthy for Prime Day traffic.'},
   util:{n:'Budget Utilization',f:'Spend ÷ Σ Daily Budget × 100',w:'How much of the allotted budget was actually spent.',i:'Low = headroom to scale winners; ~100%+ = capped, losing impressions.',b:'60–90% healthy; >100% means budget-limited.'},
+  tacos:{n:'TACOS',f:'Ad Spend ÷ Total Store Sales × 100',w:'Total advertising cost of sale — ad spend against ALL sales (ad + organic), not just ad-attributed sales.',i:'The truest efficiency gauge: how hard ads lean on the whole business. Falls as organic strengthens.',b:'≤15% strong · 15–25% healthy · >25% ad-dependent.'},
 };
 const MetricTip={el:$('#metricTip'),
   show(e,key){const m=METRICS[key];if(!m)return;
