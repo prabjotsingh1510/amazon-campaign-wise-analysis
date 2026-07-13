@@ -118,19 +118,27 @@ svg text{fill:var(--text-3);font-family:var(--font)}
 .chart-tip .t-r{display:flex;justify-content:space-between;gap:16px;padding:2px 0}
 .chart-tip .t-r b{font-weight:640}
 
-/* funnel */
-.funnel{display:flex;flex-direction:column;gap:9px}
-.fstage{position:relative;background:var(--card-2);border:1px solid var(--border);border-radius:12px;padding:15px 18px;overflow:hidden;transition:.25s}
-.fstage:hover{border-color:var(--border-2);transform:translateX(3px)}
-.fstage .fill{position:absolute;inset:0;background:linear-gradient(90deg,var(--brand-soft),transparent);border-right:2px solid var(--brand);transition:width 1s cubic-bezier(.2,.8,.2,1)}
-.fstage .fc{position:relative;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.fstage .fl{display:flex;align-items:center;gap:12px}
-.fstage .fi{width:34px;height:34px;border-radius:9px;background:var(--brand-soft);color:var(--brand-2);display:grid;place-items:center;font-size:16px;flex:none}
-.fstage .fname{font-weight:600;font-size:13.5px}
-.fstage .fsub{color:var(--text-3);font-size:11.5px}
-.fstage .fval{font-size:20px;font-weight:680;letter-spacing:-.03em}
-.fconv{display:flex;align-items:center;gap:8px;justify-content:center;padding:2px 0;color:var(--text-3);font-size:11.5px;font-weight:560}
-.fconv .r{padding:2px 9px;border-radius:100px;background:var(--card-2);border:1px solid var(--border)}
+/* funnel — tapering trapezoid stages */
+.funnelV{display:flex;flex-direction:column;padding:4px 0}
+.fstg{position:relative;height:82px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;cursor:default;
+  clip-path:polygon(calc(50% - var(--w1)/2) 0, calc(50% + var(--w1)/2) 0, calc(50% + var(--w2)/2) 100%, calc(50% - var(--w2)/2) 100%);
+  background:linear-gradient(135deg,var(--fc1),var(--fc2));box-shadow:inset 0 1px 0 rgba(255,255,255,.18);
+  transition:filter .2s,transform .2s;animation:fnl .8s cubic-bezier(.2,.85,.25,1) both}
+.fstg:hover{filter:brightness(1.08) saturate(1.1);transform:translateY(-1px)}
+@keyframes fnl{from{opacity:0;clip-path:polygon(48% 0,52% 0,52% 100%,48% 100%)}to{opacity:1}}
+.fstg .fn{font-size:10.5px;font-weight:640;letter-spacing:.1em;text-transform:uppercase;opacity:.9;text-shadow:0 1px 2px rgba(0,0,0,.25)}
+.fstg .fv{font-size:23px;font-weight:740;letter-spacing:-.025em;line-height:1.1;text-shadow:0 1px 3px rgba(0,0,0,.28)}
+.fstg .fpc{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:11px;font-weight:640;
+  background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);padding:3px 9px;border-radius:100px;backdrop-filter:blur(4px)}
+.fgap{display:flex;align-items:center;justify-content:center;gap:9px;height:34px;font-size:11px;color:var(--text-3);position:relative}
+.fgap:before{content:"";position:absolute;left:50%;top:4px;bottom:4px;width:2px;background:linear-gradient(var(--border-2),transparent);transform:translateX(-50%)}
+.fgap .cv{color:var(--text);font-weight:640;background:var(--card-2);border:1px solid var(--border-2);padding:3px 10px;border-radius:100px;z-index:1}
+.fgap .dp{color:var(--red);font-weight:600;z-index:1}
+.frev{margin-top:12px;border-radius:14px;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;
+  background:linear-gradient(135deg,var(--green-soft),transparent);border:1px solid color-mix(in srgb,var(--green) 34%,transparent);
+  animation:fnl .8s .4s cubic-bezier(.2,.85,.25,1) both}
+.frev .rl{font-size:10px;font-weight:640;text-transform:uppercase;letter-spacing:.06em;color:var(--text-3);margin-bottom:3px}
+.frev .rv{font-size:24px;font-weight:740;letter-spacing:-.03em}
 
 /* table */
 .tools{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
@@ -372,8 +380,8 @@ footer{padding:50px 0 40px;color:var(--text-3);font-size:12px;border-top:1px sol
   <section id="funnel">
     <div class="sec-head"><div><div class="k">04 · Conversion Funnel</div><h2>From impression to revenue</h2>
     <p>Where the audience converts — and where it leaks.</p></div></div>
-    <div class="grid" style="grid-template-columns:1.4fr 1fr;gap:14px" id="funnelWrap">
-      <div class="panel"><div class="funnel" id="funnel"></div></div>
+    <div class="grid" style="grid-template-columns:1.35fr 1fr;gap:14px" id="funnelWrap">
+      <div class="panel" id="funnelViz"></div>
       <div class="panel" id="funnelStats"></div>
     </div>
   </section>
@@ -381,7 +389,7 @@ footer{padding:50px 0 40px;color:var(--text-3);font-size:12px;border-top:1px sol
   <!-- ============ 5 · COMPARE ============ -->
   <section id="compare">
     <div class="sec-head"><div><div class="k">05 · Campaign Comparison</div><h2>Leaders &amp; laggards, side by side</h2></div></div>
-    <div class="grid cmp-grid stagger" id="compare"></div>
+    <div class="grid cmp-grid stagger" id="compareGrid"></div>
   </section>
 
   <!-- ============ 6 · INSIGHTS ============ -->
@@ -389,7 +397,7 @@ footer{padding:50px 0 40px;color:var(--text-3);font-size:12px;border-top:1px sol
     <div class="sec-head"><div><div class="k">06 · Executive Insights</div><h2 id="insTitle">Auto-generated observations</h2>
     <p>Every card: problem · evidence · business impact · recommended action. Generated live from the data.</p></div>
     <div class="chart-tabs" id="insFilter"></div></div>
-    <div class="grid ins-grid stagger" id="insights"></div>
+    <div class="grid ins-grid stagger" id="insightsGrid"></div>
   </section>
 
   <!-- ============ 7 · OPPORTUNITY ============ -->
@@ -857,31 +865,45 @@ const CampCard={el:$('#campCard'),pinned:false,
 const Funnel={
   render(D){
     const{tot}=D;
+    // three count-stages with an aesthetic taper (drop-offs are too extreme for literal widths);
+    // every figure below is exact, the taper is schematic.
     const stages=[
-      {i:'👁',n:'Impressions',v:tot.imp,fmt:nf,sub:'Ads shown'},
-      {i:'🖱',n:'Clicks',v:tot.clk,fmt:nf,sub:`CTR ${pct(tot.ctr,2)}`},
-      {i:'🛒',n:'Orders',v:tot.ord,fmt:nf,sub:`CVR ${pct(tot.cvr,1)}`},
+      {n:'Impressions',v:tot.imp,w1:100,w2:66,c1:'#4aa8ff',c2:'#6366f1',rate:null},
+      {n:'Clicks',v:tot.clk,w1:66,w2:42,c1:'#6366f1',c2:'#8b5cf6',rate:{l:'CTR',v:pct(tot.ctr,2)}},
+      {n:'Orders',v:tot.ord,w1:42,w2:26,c1:'#8b5cf6',c2:'#d946ef',rate:{l:'CVR',v:pct(tot.cvr,1)}},
     ];
-    const mx=stages[0].v;
-    let html='';
+    let html='<div class="funnelV">';
     stages.forEach((s,i)=>{
-      html+=`<div class="fstage"><div class="fill" style="width:${Math.max(6,s.v/mx*100)}%"></div>
-        <div class="fc"><div class="fl"><div class="fi">${s.i}</div><div><div class="fname">${s.n}</div><div class="fsub">${s.sub}</div></div></div>
-        <div class="fval num">${s.fmt(s.v)}</div></div></div>`;
-      if(i<stages.length-1){const conv=stages[i+1].v/s.v*100,drop=100-conv;
-        html+=`<div class="fconv"><span class="r">▼ ${pct(conv)} continue</span><span style="color:var(--red)">${pct(drop)} drop-off</span></div>`;}
+      if(i>0){const prev=stages[i-1];const conv=prev.v>0?s.v/prev.v*100:0;
+        html+=`<div class="fgap"><span class="cv">${s.rate.l} ${s.rate.v}</span>`+
+              `<span>▼ ${pct(conv,conv<1?2:1)} continue</span>`+
+              `<span class="dp">${pct(100-conv,conv<1?2:1)} drop-off</span></div>`;}
+      const share=tot.imp>0?s.v/tot.imp*100:0;
+      html+=`<div class="fstg" title="${s.n}: ${nf(s.v)} · ${share<0.1?share.toFixed(3):share.toFixed(1)}% of impressions"
+        style="--w1:${s.w1}%;--w2:${s.w2}%;--fc1:${s.c1};--fc2:${s.c2};animation-delay:${i*0.12}s">
+        <div class="fn">${s.n}</div><div class="fv num">${nf(s.v)}</div>
+        ${i>0?`<span class="fpc">${(s.v/stages[i-1].v*100).toFixed(s.v/stages[i-1].v*100<1?2:1)}%</span>`:''}</div>`;
     });
-    $('#funnel').innerHTML=html;
+    html+=`<div class="frev">
+      <div><div class="rl">Revenue generated</div><div class="rv" style="color:var(--green)">${inr(tot.sal)}</div></div>
+      <div style="text-align:center"><div class="rl">ROAS</div><div class="rv">${xr(tot.roas)}</div></div>
+      <div style="text-align:right"><div class="rl">AOV</div><div class="rv">${inr(tot.aov)}</div></div>
+    </div></div>`;
+    $('#funnelViz').innerHTML=html;
+    const clickToOrder=tot.clk>0?tot.ord/tot.clk*100:0;
     $('#funnelStats').innerHTML=`
-      <div style="font-size:13px;font-weight:620;margin-bottom:4px">Outcome</div>
-      <div style="color:var(--text-3);font-size:11.5px;margin-bottom:16px">What the funnel produced</div>
+      <div style="font-size:13px;font-weight:620;margin-bottom:4px">Efficiency &amp; leakage</div>
+      <div style="color:var(--text-3);font-size:11.5px;margin-bottom:16px">How value survives each stage</div>
       <div style="display:flex;flex-direction:column;gap:14px">
-        <div><div class="cc-k" style="color:var(--text-3);font-size:11px">Revenue generated</div><div style="font-size:28px;font-weight:700;letter-spacing:-.03em;color:var(--green)">${inr(tot.sal)}</div></div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
-          <div><div class="cc-k" style="color:var(--text-3);font-size:11px">ROAS</div><div style="font-size:22px;font-weight:700">${xr(tot.roas)}</div></div>
-          <div><div class="cc-k" style="color:var(--text-3);font-size:11px">AOV</div><div style="font-size:22px;font-weight:700">${inr(tot.aov)}</div></div>
           <div><div class="cc-k" style="color:var(--text-3);font-size:11px">Rev / Click</div><div style="font-size:22px;font-weight:700">${inr(tot.rpc)}</div></div>
           <div><div class="cc-k" style="color:var(--text-3);font-size:11px">Cost / Order</div><div style="font-size:22px;font-weight:700">${inr(tot.cpp)}</div></div>
+          <div><div class="cc-k" style="color:var(--text-3);font-size:11px">CPC</div><div style="font-size:22px;font-weight:700">${inr(tot.cpc)}</div></div>
+          <div><div class="cc-k" style="color:var(--text-3);font-size:11px">Click→Order</div><div style="font-size:22px;font-weight:700">${pct(clickToOrder,1)}</div></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:9px;border-top:1px solid var(--border);padding-top:14px">
+          <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--text-3)">Impressions → Clicks</span><b>${pct(tot.ctr,2)} pass · <span style="color:var(--red)">${pct(100-tot.ctr,2)} lost</span></b></div>
+          <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--text-3)">Clicks → Orders</span><b>${pct(clickToOrder,1)} pass · <span style="color:var(--red)">${pct(100-clickToOrder,1)} lost</span></b></div>
         </div>
         <div style="border-top:1px solid var(--border);padding-top:14px;color:var(--text-2);font-size:12.5px;line-height:1.55">
           Of every <b>1,000</b> impressions, <b>${(tot.clk/tot.imp*1000).toFixed(1)}</b> clicked and
@@ -904,7 +926,7 @@ const Compare={
       {t:'Lowest ROAS (spend > median)',c:'var(--red)',rows:[...spenders].filter(c=>c.sp>=D.bm.spendMed).sort((a,b)=>a.roas-b.roas).slice(0,10),v:c=>c.roas,f:v=>xr(v)},
       {t:'Highest ACOS (selling)',c:'var(--amber)',rows:[...sellers].sort((a,b)=>b.acos-a.acos).slice(0,10),v:c=>c.acos,f:v=>pct(v)},
     ];
-    $('#compare').innerHTML=sets.map(s=>{
+    $('#compareGrid').innerHTML=sets.map(s=>{
       const mx=Math.max(...s.rows.map(r=>Math.abs(s.v(r))),1);
       return `<div class="panel"><div style="display:flex;justify-content:space-between;align-items:center">
         <div style="font-size:13px;font-weight:620">${s.t}</div>
@@ -915,7 +937,7 @@ const Compare={
             <div class="bar-track"><i style="width:${Math.abs(s.v(r))/mx*100}%;background:${s.c}"></i></div>
           </div>`).join('')}</div></div>`;
     }).join('');
-    $$('#compare .bar-row').forEach(row=>{const c=camps.find(x=>x.id===row.dataset.id);if(!c)return;
+    $$('#compareGrid .bar-row').forEach(row=>{const c=camps.find(x=>x.id===row.dataset.id);if(!c)return;
       row.style.cursor='pointer';row.onmouseenter=e=>CampCard.show(e,c);row.onmousemove=e=>CampCard.move(e);row.onmouseleave=()=>CampCard.hide();});
   }
 };
@@ -1115,7 +1137,7 @@ const Insights={
     const order={critical:0,warning:1,positive:2,info:3};
     list.sort((a,b)=>order[a.sev]-order[b.sev]);
     $('#insTitle').textContent=`${this.data.length} auto-generated observations`;
-    $('#insights').innerHTML=list.map(i=>`
+    $('#insightsGrid').innerHTML=list.map(i=>`
       <div class="insight ${i.sev}">
         <div class="ih"><span class="sev ${i.sev}">${i.sev}</span><h4>${i.title}</h4></div>
         <div class="row"><span class="tag">Problem</span><span class="tx">${i.problem}</span></div>
