@@ -1,0 +1,19 @@
+kpi,value
+"Total Sales (ad-attributed, INR)",193282.35
+"Total Spend (derived CPC×Clicks, INR)",67144.07
+Total Purchases (orders),380.0
+Total Units Sold,389.0
+Total Clicks,4734.0
+Total Impressions,901645.0
+Total Campaigns (distinct),227.0
+"Average CPC (blended, INR)",14.18
+"Average CTR (blended, %)",0.525
+"Average CPM (blended, INR)",74.47
+"Average ROAS (blended, x)",2.8786
+"ACOS (blended, %)",34.7389
+"Conversion Rate (orders/clicks, %)",8.027
+Average Order Value (INR),508.64
+Revenue Per Click (INR),40.83
+Revenue Per Impression (INR),0.214366
+Cost Per Purchase (INR),176.69
+"Budget Utilization (Spend/ΣDailyBudget, %)",16.37
