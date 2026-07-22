@@ -373,7 +373,8 @@ footer{padding:50px 0 40px;color:var(--text-3);font-size:12px;border-top:1px sol
   <!-- ============ 2 · DAILY TREND ============ -->
   <section id="trend">
     <div class="sec-head">
-      <div><div class="k">02 · Daily Trend</div><h2>How the three days played out</h2></div>
+      <div><div class="k">02 · Daily Trend</div><h2>How the 13 days played out</h2>
+      <p>Daily business trend across the full period (Jun 30 – Jul 12). Toggle any metric; Prime Day is shaded.</p></div>
       <div class="chart-tabs" id="trendTabs"></div>
     </div>
     <div class="panel" id="trendPanel"><div class="skel" style="height:320px"></div></div>
@@ -487,7 +488,7 @@ const xr=(x,d=2)=>x==null||isNaN(x)?'—':x.toFixed(d)+'×';
 
 /* ---------- STATE ---------- */
 const State={filters:{camp:'',pf:'',date:'',status:'',cat:'',roas:0,spend:0,sales:0},
-  sort:{key:'sales',dir:-1}, trendMetric:'sales', insFilter:'all'};
+  sort:{key:'sales',dir:-1}, trendMetric:'total', insFilter:'all'};
 
 /* ---------- AGGREGATION (dynamic) ---------- */
 function aggregate(rows){
@@ -887,51 +888,60 @@ const Alerts={
 
 /* ---------- TREND CHART ---------- */
 const Trend={
-  metrics:{sales:{k:'sal',lbl:'Daily Sales',fmt:inrK,col:'var(--green)'},
-    spend:{k:'sp',lbl:'Daily Spend',fmt:inrK,col:'var(--brand)'},
-    roas:{k:'roas',lbl:'Daily ROAS',fmt:v=>xr(v),col:'var(--blue)'},
-    acos:{k:'acos',lbl:'Daily ACOS',fmt:v=>pct(v),col:'var(--amber)'},
-    orders:{k:'ord',lbl:'Daily Orders',fmt:v=>nf(v),col:'var(--red)'}},
-  init(D){this.D=daily(filteredRows());
-    $('#trendTabs').innerHTML=Object.entries(this.metrics).map(([k,m])=>`<button class="${k===State.trendMetric?'on':''}" onclick="Trend.pick('${k}')">${m.lbl.replace('Daily ','')}</button>`).join('');
+  // driven by the full-period DAILY business dataset (Jun 30 – Jul 12), independent of campaign filters
+  metrics:{
+    total:{k:'total',lbl:'Total Sales',fmt:inrK,col:'#2fd07f'},
+    ad:{k:'ad',lbl:'Ad Sales',fmt:inrK,col:'var(--blue)'},
+    org:{k:'org',lbl:'Organic Sales',fmt:inrK,col:'#22c58a'},
+    spend:{k:'sp',lbl:'Spend',fmt:inrK,col:'var(--brand)'},
+    roas:{k:'roas',lbl:'ROAS',fmt:v=>xr(v),col:'var(--blue)'},
+    acos:{k:'acos',lbl:'ACOS',fmt:v=>pct(v,0),col:'var(--amber)'},
+    tacos:{k:'tacos',lbl:'TACOS',fmt:v=>pct(v,0),col:'var(--amber)'},
+    orders:{k:'pur',lbl:'Orders',fmt:v=>nf(v),col:'var(--red)'}},
+  init(D){this.D=DAILY;
+    $('#trendTabs').innerHTML=Object.entries(this.metrics).map(([k,m])=>`<button class="${k===State.trendMetric?'on':''}" onclick="Trend.pick('${k}')">${m.lbl}</button>`).join('');
     this.draw();},
   pick(k){State.trendMetric=k;$$('#trendTabs button').forEach((b,i)=>b.classList.toggle('on',Object.keys(this.metrics)[i]===k));this.draw();},
   draw(){
-    const m=this.metrics[State.trendMetric];const data=this.D;if(!data||!data.length){$('#trendPanel').innerHTML='<div style="color:var(--text-3);padding:40px;text-align:center">No data for current filters.</div>';return;}
+    const m=this.metrics[State.trendMetric]||this.metrics.total;const data=this.D;if(!data||!data.length){$('#trendPanel').innerHTML='<div style="color:var(--text-3);padding:40px;text-align:center">No data.</div>';return;}
     const W=980,H=340,pl=64,pr=24,pt=24,pb=44;const iw=W-pl-pr,ih=H-pt-pb;
     const vals=data.map(d=>d[m.k]||0);let mx=Math.max(...vals),mn=Math.min(...vals,0);if(mx===mn)mx=mn+1;mx*=1.12;
     const X=i=>pl+(data.length===1?iw/2:i/(data.length-1)*iw);
     const Y=v=>pt+ih-((v-mn)/(mx-mn))*ih;
+    const bandW=iw/(data.length-1)*0.9;
+    let pdBand='';data.forEach((d,i)=>{if(d.pd)pdBand+=`<rect x="${(X(i)-bandW/2).toFixed(1)}" y="${pt}" width="${bandW.toFixed(1)}" height="${ih}" fill="var(--brand-soft)" opacity=".6"/>`;});
     let grid='',lbls='';for(let g=0;g<=4;g++){const v=mn+(mx-mn)*g/4,y=Y(v);
       grid+=`<line class="grid-line" x1="${pl}" y1="${y}" x2="${W-pr}" y2="${y}"/>`;
       lbls+=`<text x="${pl-10}" y="${y+4}" text-anchor="end" font-size="11">${m.fmt(v)}</text>`;}
     const pts=data.map((d,i)=>[X(i),Y(d[m.k]||0)]);
     const line=pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' ');
     const area=line+` L${pts[pts.length-1][0]} ${pt+ih} L${pts[0][0]} ${pt+ih} Z`;
-    let dots='',xl='';data.forEach((d,i)=>{dots+=`<circle cx="${X(i)}" cy="${Y(d[m.k]||0)}" r="5" fill="${m.col}" stroke="var(--card)" stroke-width="3"
+    let dots='',xl='';data.forEach((d,i)=>{dots+=`<circle cx="${X(i)}" cy="${Y(d[m.k]||0)}" r="4.5" fill="${m.col}" stroke="var(--card)" stroke-width="2.5"
         data-i="${i}" class="tdot" style="cursor:pointer"/>`;
-      xl+=`<text x="${X(i)}" y="${H-16}" text-anchor="middle" font-size="12" font-weight="600" fill="var(--text-2)">${fmtDate(d.d)}</text>`;});
+      xl+=`<text x="${X(i)}" y="${H-15}" text-anchor="middle" font-size="10.5" font-weight="${d.pd?'700':'520'}" fill="${d.pd?'var(--brand-2)':'var(--text-3)'}">${fmtDate(d.d)}</text>`;});
     $('#trendPanel').innerHTML=`
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-        <div><div style="font-size:13px;font-weight:620">${m.lbl}</div>
-        <div style="color:var(--text-3);font-size:11.5px">Hover points for detail · 04–06 Jul 2026</div></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;flex-wrap:wrap;gap:8px">
+        <div><div style="font-size:13px;font-weight:620">${m.lbl} · daily</div>
+        <div style="color:var(--text-3);font-size:11.5px">Full business period Jun 30 – Jul 12 · shaded = Prime Day · hover any point</div></div>
         <button class="btn" onclick="Exp.png($('#trendSvg'),'daily-${State.trendMetric}')">⤓ PNG</button></div>
       <svg id="trendSvg" viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block">
         <defs><linearGradient id="ag" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${m.col}" stop-opacity=".28"/><stop offset="1" stop-color="${m.col}" stop-opacity="0"/></linearGradient></defs>
-        ${grid}${lbls}
+        ${pdBand}${grid}${lbls}
         <path d="${area}" fill="url(#ag)"/>
         <path d="${line}" fill="none" stroke="${m.col}" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
         ${dots}${xl}
       </svg>`;
     $$('#trendPanel .tdot').forEach(dot=>{dot.onmouseenter=e=>{const d=data[+dot.dataset.i];
-      ChartTip.show(e,`<div class="t-d">${fmtDate(d.d)}</div>
-        <div class="t-r"><span>Sales</span><b>${inr(d.sal)}</b></div>
+      ChartTip.show(e,`<div class="t-d">${fmtDate(d.d)}${d.pd?' · PRIME DAY':''}</div>
+        <div class="t-r"><span>Total sales</span><b>${inr(d.total)}</b></div>
+        <div class="t-r"><span>Ad sales</span><b>${inr(d.ad)}</b></div>
+        <div class="t-r"><span>Organic</span><b>${inr(d.org)} (${pct(d.orgpct)})</b></div>
         <div class="t-r"><span>Spend</span><b>${inr(d.sp)}</b></div>
-        <div class="t-r"><span>ROAS</span><b>${xr(d.roas)}</b></div>
-        <div class="t-r"><span>ACOS</span><b>${pct(d.acos)}</b></div>
-        <div class="t-r"><span>Orders</span><b>${nf(d.ord)}</b></div>`);
-      dot.setAttribute('r',7);};
-      dot.onmouseleave=()=>{ChartTip.hide();dot.setAttribute('r',5);};});
+        <div class="t-r"><span>ROAS · ACOS</span><b>${xr(d.roas)} · ${pct(d.acos)}</b></div>
+        <div class="t-r"><span>TACOS</span><b>${pct(d.tacos)}</b></div>
+        <div class="t-r"><span>Orders</span><b>${nf(d.pur)}</b></div>`);
+      dot.setAttribute('r',6.5);};
+      dot.onmouseleave=()=>{ChartTip.hide();dot.setAttribute('r',4.5);};});
   }
 };
 const ChartTip={el:$('#chartTip'),show(e,html){this.el.innerHTML=html;this.el.style.opacity=1;this.move(e);},
